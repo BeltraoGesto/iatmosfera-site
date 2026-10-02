@@ -1,7 +1,9 @@
 # Importa arquivos de mídia (imagens/vídeos gerados) para dentro do repositório.
 # Como usar: liste em midia/importar.txt uma linha por arquivo no formato
-#   caminho/de/destino.ext https://url-de-origem
+#   caminho/de/destino.ext https://url-de-origem [video|loop=1.5|bruto]
 # e faça push. O job baixa cada URL e faz commit dos arquivos no mesmo branch.
+# Com a opção "video", o MP4 é recodificado para a web (H.264, sem áudio,
+# faststart, até 1920 px) e uma folha de quadros vai para midia/quadros/.
 name: Importar mídia
 
 on:
@@ -21,18 +23,59 @@ jobs:
   importar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - name: Baixar arquivos listados
+      - name: Instalar ffmpeg (só se houver vídeo para otimizar)
+        run: |
+          if grep -Eq '^[^#].*[[:space:]](video|loop=)' midia/importar.txt; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null
+            ffmpeg -version | head -1
+          fi
+
+      - name: Baixar (e otimizar) arquivos listados
         run: |
           set -eu
-          while IFS=' ' read -r destino url _; do
+          mkdir -p midia/quadros
+          # opções (3ª coluna, separadas por vírgula):
+          #   video      recodifica para web (H.264 crf 18, sem áudio, faststart, até 2560 px)
+          #   loop=N     fecha o loop com um crossfade de N segundos entre o fim e o início
+          #   bruto      guarda o arquivo exatamente como veio (sem recodificar)
+          while IFS=' ' read -r destino url opcoes _; do
             [ -z "${destino:-}" ] && continue
             case "$destino" in '#'*) continue;; esac
             [ -z "${url:-}" ] && { echo "URL ausente para $destino"; exit 1; }
             mkdir -p "$(dirname "$destino")"
-            echo "-> $destino"
-            curl -fsSL --retry 3 --retry-delay 5 -o "$destino" "$url"
+            echo "-> $destino  [${opcoes:-}]"
+            case ",${opcoes:-}," in
+              *,video,*|*,loop=*)
+                curl -fsSL --retry 3 --retry-delay 5 -o /tmp/origem.mp4 "$url"
+                echo "   original: $(stat -c %s /tmp/origem.mp4) bytes, $(ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate,nb_frames -of csv=p=0 /tmp/origem.mp4)"
+                filtro="scale=w='if(gt(iw,ih),min(2560,iw),-2)':h='if(gt(iw,ih),-2,min(2560,ih))'"
+                xf=""
+                case ",${opcoes}," in *,loop=*) xf="$(printf '%s' ",${opcoes}," | sed -n 's/.*,loop=\([0-9.]*\),.*/\1/p')";; esac
+                if [ -n "$xf" ]; then
+                  dur="$(ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/origem.mp4)"
+                  # trecho [xf..fim] + trecho [0..xf] com crossfade: o último quadro vira o primeiro
+                  off="$(awk -v d="$dur" -v x="$xf" 'BEGIN{printf "%.3f", d-2*x}')"
+                  ffmpeg -nostdin -hide_banner -loglevel error -y -i /tmp/origem.mp4 -an -filter_complex \
+                    "[0:v]trim=start=${xf},setpts=PTS-STARTPTS[a];[0:v]trim=duration=${xf},setpts=PTS-STARTPTS[b];[a][b]xfade=transition=fade:duration=${xf}:offset=${off},${filtro}[v]" \
+                    -map "[v]" -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -movflags +faststart "$destino"
+                else
+                  ffmpeg -nostdin -hide_banner -loglevel error -y -i /tmp/origem.mp4 -an \
+                    -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -movflags +faststart -vf "$filtro" "$destino"
+                fi
+                base="$(basename "${destino%.*}")"
+                # folha de quadros (1 por segundo) e mapa de movimento (quanto cada região mudou ao longo do clipe)
+                ffmpeg -nostdin -hide_banner -loglevel error -y -i "$destino" -vf "fps=1,scale=480:-2,tile=5x2" -frames:v 1 -q:v 4 "midia/quadros/${base}.jpg"
+                ffmpeg -nostdin -hide_banner -loglevel error -y -i "$destino" -vf "fps=5,tblend=all_mode=difference,format=gray,tmix=frames=50:weights='1',eq=brightness=0.1:contrast=6,scale=960:-2" -frames:v 1 -q:v 4 "midia/quadros/${base}-movimento.jpg" || true
+                echo "   movimento médio (0-255, maior = mais movimento):"
+                ffmpeg -nostdin -hide_banner -i "$destino" -vf "fps=5,tblend=all_mode=difference,signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=/tmp/mov.txt" -f null - 2>/dev/null || true
+                awk -F= '/YAVG/{s+=$2;n++} END{if(n) printf "   YAVG=%.3f (n=%d)\n", s/n, n}' /tmp/mov.txt || true
+                ;;
+              *,bruto,*|*)
+                curl -fsSL --retry 3 --retry-delay 5 -o "$destino" "$url"
+                ;;
+            esac
             ls -l "$destino"
           done < midia/importar.txt
 

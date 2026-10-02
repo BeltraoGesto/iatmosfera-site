@@ -1,2 +1,2 @@
-# destino  url
-referencias/plate-9x16-a.png https://d8j0ntlcm91z4.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/hf_20261002_184601_ca36c547-2ac8-431c-9691-027956088535.png
+# destino  url  [video]
+assets/video/lancamento-9x16.mp4 https://d8j0ntlcm91z4.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/hf_20261002_185111_5d1cc21a-eba7-4f1a-89d4-33a1e2586ba5.mp4 video
