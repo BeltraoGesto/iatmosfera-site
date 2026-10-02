@@ -68,9 +68,9 @@ você / Claude --push--> GitHub (main) --Hostinger puxa--> public_html --> https
 
 | Arquivo | Para quê |
 |---|---|
-| `index.html` | landing page (vídeo de fundo, "Avise-me", botão Contato); textos e caminhos no próprio arquivo e no bloco `CONFIG` do script |
+| `index.html` | landing page (vídeo de fundo, botão de som, "Avise-me"); textos e caminhos no próprio arquivo |
 | `galaxia.html` | a galáxia interativa ("em breve"); conteúdo editável no bloco `CONTEUDO` no início do script |
-| `assets/video/` | vídeo de fundo em loop (`lancamento-16x9.mp4`, `lancamento-9x16.mp4`) e os pôsteres `.jpg` |
+| `assets/video/` | vídeo de fundo em loop (`lancamento-16x9.mp4`) e o pôster `lancamento-16x9.jpg` |
 | `.htaccess` | compressão, cache, bloqueio de arquivos internos e da pasta `.git`, HTTPS (comentado) |
 | `avise-me.php` | recebe o formulário "Avise-me" (opcional) |
 | `contato.php` | recebe o formulário "Contato" da landing (opcional) |

@@ -3,11 +3,12 @@
 Site de `iatmosfera.com.br`.
 
 - `index.html` — landing page: vídeo de fundo em loop (plataforma de lançamento à
-  noite), "Avise-me quando lançar" e botão **Contato**. Caminhos e e-mail de
-  contato no bloco `CONFIG` do script; os textos estão no próprio HTML.
+  noite, gerado no Higgsfield), botão de som, "Avise-me quando lançar". Os textos
+  estão no próprio HTML; o e-mail de contato do fallback está no script.
 - `galaxia.html` — a galáxia interativa ("em breve") com os quadros de
   informação. Conteúdo editável no bloco `CONTEUDO` no início do script.
-- `assets/video/` — vídeos de fundo (16:9 e 9:16) e pôsteres.
+- `assets/video/` — `lancamento-16x9.mp4` (H.264 1080p, 16,9 s, com áudio) e o
+  pôster `lancamento-16x9.jpg` (primeiro quadro, mostrado enquanto carrega).
 - `assets/animacoes/` — animações dos quadros da galáxia (ver README da pasta).
 - `avise-me.php` e `contato.php` — recebem os formulários e gravam em `dados/`.
 - `midia/importar.txt` + workflow **Importar mídia** — traz arquivos gerados
