@@ -1,0 +1,3 @@
+# destino  url
+referencias/plate-16x9-a.png https://d8j0ntlcm91z4.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/hf_20261002_184318_561ec18e-8a84-4cd7-a1a2-d13b7e7b9ff1.png
+referencias/plate-16x9-b.png https://d8j0ntlcm91z4.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/hf_20261002_184318_945218f9-1704-43dd-8f4c-3ebfe96347fd.png
