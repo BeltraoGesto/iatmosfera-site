@@ -3,955 +3,390 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0e0a08" id="themecolor">
-<meta name="description" content="iAtmosfera — a IA que executa dentro do seu sistema de gestão. Em breve.">
-<title>iAtmosfera — em breve</title>
+<meta name="theme-color" content="#07050b">
+<meta name="description" content="iAtmosfera — tecnologia, inteligência e conexão para levar seu ERP a uma nova órbita. Lançamento em breve.">
+<meta property="og:title" content="iAtmosfera — lançamento em breve">
+<meta property="og:description" content="Estamos preparando uma nova atmosfera. Tecnologia, inteligência e conexão para levar seu ERP a uma nova órbita.">
+<meta property="og:image" content="assets/video/lancamento-16x9.jpg">
+<meta property="og:type" content="website">
+<title>iAtmosfera — lançamento em breve</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f25f4c'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='-apple-system,Segoe UI,Inter,sans-serif' font-weight='800' font-size='34' fill='%23fff'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/video/lancamento-16x9.jpg" media="(orientation: landscape)">
+<link rel="preload" as="image" href="assets/video/lancamento-9x16.jpg" media="(orientation: portrait)">
 <style>
 /* ============================================================
-   TOKENS — identidade iAtmosfera (claro por padrão do design system,
-   escuro como padrão desta página de "em breve"; o visitante escolhe)
+   TOKENS — identidade iAtmosfera (coral #f25f4c; "i" sempre coral)
+   A landing é escura por natureza: o vídeo de fundo é uma cena noturna.
    ============================================================ */
 :root{
-  --bg:#ffffff; --panel:#ffffff; --soft:#fbf6f4; --soft2:#fdf1ee; --line:#efe2dc; --line2:#e6d2ca;
   --coral:#f25f4c; --coral-l:#ff8b6b; --coral-d:#d8402c;
-  --ink:#241713; --ink2:#3a2a24; --muted:#7a6259; --dim:#8a7168; --glow:rgba(242,95,76,.28); --ok:#3f7d5a; --err:#b5301e;
-  --grad:linear-gradient(158deg,#f56a54,#f25f4c,#d8402c);
+  --ink:#f6f1ee; --ink2:#e3d8d3; --muted:#b9aaa4; --dim:#8f807a;
+  --night:#07050b; --night2:#0e0a12;
+  --glass:rgba(16,11,18,.52); --glass2:rgba(22,15,24,.72); --line:rgba(255,255,255,.1); --line2:rgba(255,255,255,.18);
+  --grad:linear-gradient(135deg,#ff7a63,#f25f4c 55%,#e24a35);
   --sys:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-  --glass:rgba(255,255,255,.72); --glassline:var(--line2); --glassshadow:0 24px 60px -20px rgba(120,60,40,.35);
-  --pillbg:rgba(255,255,255,.7);
-  --boardbg:rgba(255,252,250,.88); --scrim:rgba(255,250,248,.28); --glass2:rgba(255,253,252,.76);
-  --ease:cubic-bezier(.2,.7,.3,1); --ease2:cubic-bezier(.7,0,.2,1);
-}
-body.dark{
-  --bg:#0e0a08; --panel:#1a120f; --soft:#1c1310; --soft2:#2a1a15; --line:#2a1a15; --line2:#3a251e;
-  --ink:#f4ede9; --ink2:#e8d9d2; --muted:#b79c92; --dim:#9a8076; --coral-d:#ff7a5f; --glow:rgba(242,95,76,.4); --ok:#8fc7a6; --err:#ff8b6b;
-  --glass:rgba(28,20,17,.62); --glassline:rgba(255,139,107,.18); --glassshadow:0 30px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);
-  --pillbg:rgba(28,20,17,.55);
-  --boardbg:rgba(14,10,8,.86); --scrim:rgba(8,5,4,.38); --glass2:rgba(26,18,15,.76);
+  --ease:cubic-bezier(.2,.7,.3,1);
+  --gutter:clamp(18px,4.5vw,64px);
+  --ok:#9bd7b2; --err:#ffa08a;
+  color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden}
-body{color:var(--ink);font-family:'Sora',var(--sys);font-weight:300;-webkit-font-smoothing:antialiased;
-  background:radial-gradient(1100px 560px at 82% -12%,#ffe7df80,transparent 60%),radial-gradient(820px 460px at -12% 108%,#ffeae380,transparent 55%),var(--bg);
-  transition:background .4s,color .4s}
-body.dark{background:radial-gradient(1100px 560px at 82% -12%,#2a1a1566,transparent 60%),radial-gradient(820px 460px at -12% 108%,#2a121566,transparent 55%),var(--bg)}
-button,input,select{font-family:inherit;font-size:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--coral-l);outline-offset:3px;border-radius:6px}
+html{-webkit-text-size-adjust:100%}
+body{min-height:100svh;background:var(--night);color:var(--ink);font-family:'Sora',var(--sys);font-weight:300;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input,textarea{font-family:inherit;font-size:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--coral-l);outline-offset:3px;border-radius:8px}
 .srx{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.i{color:var(--coral)} /* o "i" da marca */
 
 /* ============================================================
-   PALCO — duas telas empilhadas: 1) a rede/sistema  2) o quadro
-   O quadro abre ABAIXO: o palco desliza para cima; a rede não sai do lugar.
+   FUNDO — vídeo em loop (16:9 ou 9:16 conforme a orientação) com pôster
    ============================================================ */
-.stage{position:fixed;left:0;top:0;width:100%;height:100%}
-.screen{position:relative;width:100%;height:100%}
-#s1{overflow:hidden;transition:opacity .7s}
-body.board #s1{opacity:.62} /* a galáxia continua ao fundo, um pouco esmaecida, enquanto a janela está aberta */
-body.board .hero.on,body.board .hint.on,body.board .legend.on,body.board .back.on{opacity:0;transition:opacity .35s} /* textos da capa somem para não competir com a leitura */
-#net{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
-#net.hand{cursor:pointer}
-#net.grab{cursor:grabbing}
-
-/* ---- marca no centro (o "sol"): grafia oficial, "i" coral ---- */
-.cword{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6;cursor:pointer;user-select:none;
-  font-family:var(--sys);font-weight:700;letter-spacing:-.02em;line-height:1;color:var(--ink);white-space:nowrap;
-  font-size:clamp(58px,9.5vw,112px);opacity:0;animation:cwin 1.2s ease .2s forwards;
-  transition:font-size 1.1s var(--ease2),left 1s var(--ease2),top 1s var(--ease2),transform 1s var(--ease2),text-shadow 1s,opacity .5s;
-  text-shadow:0 0 60px rgba(242,95,76,.35)}
-@keyframes cwin{to{opacity:1}}
-.cword .i{color:var(--coral)}
-.cword::after{content:'';position:absolute;left:0;right:0;bottom:-.18em;height:2px;background:var(--grad);border-radius:2px;transform:scaleX(0);transform-origin:left;animation:cwline .9s var(--ease) .9s forwards}
-@keyframes cwline{to{transform:scaleX(1)}}
-.cword.small{font-size:clamp(26px,3vw,38px);text-shadow:0 0 28px rgba(242,95,76,.3);left:var(--cx,50%);top:var(--cy,50%)}
-.cword.small::after{animation:none;transform:scaleX(0)}
-.cword.hide{opacity:0!important;pointer-events:none;visibility:hidden;transition:opacity .5s,visibility 0s .5s}
-/* título do sistema aberto (quando um nó vira o centro) */
-.ctitle{position:absolute;left:var(--cx,50%);top:var(--cy,50%);transform:translate(-50%,-50%) scale(.6);z-index:6;text-align:center;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s,transform .4s var(--ease),visibility 0s .3s}
-.ctitle.on{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1);pointer-events:auto;transition:opacity .6s .5s,transform .8s var(--ease) .5s,visibility 0s}
-.ctitle h1{font-family:var(--sys);font-weight:700;font-size:clamp(24px,3vw,36px);letter-spacing:-.025em;line-height:1.05;color:var(--ink);white-space:nowrap;cursor:pointer}
-.ctitle .k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
-
-/* ---- hero: "em breve" + frase (topo, fora das órbitas) ---- */
-.hero{position:absolute;left:50%;top:clamp(26px,4vh,44px);transform:translateX(-50%);z-index:5;width:min(720px,calc(100vw - 40px));text-align:center;opacity:0;transition:opacity .9s .2s;pointer-events:none}
-.hero.on{opacity:1}
-.kick{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--coral-d);border:1px solid rgba(242,95,76,.4);background:var(--pillbg);padding:6px 13px 6px 10px;border-radius:100px;backdrop-filter:blur(10px)}
-.kick i{width:7px;height:7px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 0 rgba(242,95,76,.55);animation:pulse 2.2s ease-out infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(242,95,76,.55)}100%{box-shadow:0 0 0 12px rgba(242,95,76,0)}}
-.phrase{position:relative;height:2.6em;margin-top:10px;font-family:var(--sys);font-weight:600;font-size:clamp(17px,2vw,24px);letter-spacing:-.02em;line-height:1.3;color:var(--ink)}
-.phrase span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(6px);transition:opacity .45s,transform .6s var(--ease)}
-.phrase span.on{opacity:1;transform:none}
-.phrase b{font-weight:600;color:var(--coral-d)}
-
-/* ---- rodapé da tela 1: legenda + dica ---- */
-.legend{position:absolute;left:max(30px,env(safe-area-inset-left));bottom:30px;z-index:5;display:flex;flex-direction:column;gap:9px;opacity:0;transition:opacity .6s;font-size:12px;color:var(--muted);pointer-events:none}
-.legend.on{opacity:1}
-.legend div{display:flex;align-items:center;gap:9px}
-.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
-.legend .a{background:var(--grad)} .legend .p{border:1.5px solid var(--coral);background:var(--bg)}
-.back{position:absolute;left:max(30px,env(safe-area-inset-left));bottom:22px;height:38px;z-index:7;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .5s,border-color .2s,color .2s,transform .2s,visibility 0s .5s}
-.back.on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .5s,border-color .2s,color .2s,transform .2s,visibility 0s}
-.hint{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);z-index:5;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);opacity:0;transition:opacity .8s;pointer-events:none;white-space:nowrap}
-.hint.on{opacity:1}
-.hint.off{opacity:0}
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--night)}
+.bg img,.bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%}
+.bg video{opacity:0;transition:opacity 1.6s ease}
+.bg video.on{opacity:1}
+.bg .shade{position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(7,5,11,.86) 0%,rgba(7,5,11,.62) 34%,rgba(7,5,11,.18) 58%,rgba(7,5,11,0) 72%),
+    linear-gradient(180deg,rgba(7,5,11,.55) 0%,rgba(7,5,11,0) 24%),
+    linear-gradient(180deg,rgba(7,5,11,0) 56%,rgba(7,5,11,.78) 100%)}
+.bg .grain{position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* ============================================================
-   SISTEMA DE BOTÕES — uma família só de pílulas
-   .btn (primário, gradiente) · .btn.ghost (vidro, contorno) · .btn.sm · .chip · .iconbtn
+   ESTRUTURA — tela cheia: topo, hero à esquerda, cartões embaixo
    ============================================================ */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:42px;padding:0 20px;border-radius:100px;border:1px solid transparent;
-  background:var(--grad);color:#fff;text-decoration:none;font-size:13.5px;font-weight:600;letter-spacing:-.005em;cursor:pointer;white-space:nowrap;
-  box-shadow:0 8px 22px -10px rgba(242,95,76,.55);transition:transform .2s,box-shadow .2s,border-color .2s,background .2s,color .2s}
-.btn:hover{transform:translateY(-1px);box-shadow:0 14px 30px -10px rgba(242,95,76,.6)}
+.page{position:relative;z-index:1;min-height:100svh;display:grid;grid-template-rows:auto 1fr auto;
+  padding:0 var(--gutter) max(18px,env(safe-area-inset-bottom))}
+
+/* ---- topo: marca + Contato ---- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:max(16px,env(safe-area-inset-top)) 0 10px;min-height:88px}
+.brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none;color:var(--ink);font-family:var(--sys);font-weight:700;letter-spacing:-.02em;font-size:clamp(22px,2.2vw,30px);line-height:1}
+.mark{width:clamp(40px,3.6vw,52px);aspect-ratio:1;border-radius:26%;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800;font-size:.72em;box-shadow:0 10px 30px -8px rgba(242,95,76,.65),inset 0 1px 0 rgba(255,255,255,.35);position:relative}
+.mark::after{content:'';position:absolute;inset:-6px;border-radius:32%;box-shadow:0 0 0 1px rgba(242,95,76,.22);pointer-events:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:46px;padding:0 22px;border-radius:999px;border:1px solid var(--line2);background:var(--glass);color:var(--ink);font-weight:500;font-size:15px;letter-spacing:.01em;cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:background .25s,border-color .25s,transform .25s var(--ease),box-shadow .25s;text-decoration:none;white-space:nowrap}
+.btn:hover{background:rgba(242,95,76,.16);border-color:rgba(242,95,76,.6);transform:translateY(-1px);box-shadow:0 12px 30px -12px rgba(242,95,76,.6)}
 .btn:active{transform:translateY(0)}
-.btn svg{width:16px;height:16px;flex:none}
-.btn.ghost{background:var(--pillbg);color:var(--ink);border-color:var(--line2);box-shadow:none;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.btn.ghost:hover{border-color:var(--coral);color:var(--ink);box-shadow:0 10px 26px -14px rgba(120,60,40,.5)}
-.btn.ghost svg{color:var(--coral-d)}
-.btn.sm{height:36px;padding:0 15px;font-size:12.5px}
-.btn.lg{height:48px;padding:0 26px;font-size:14.5px}
-.btn[disabled]{opacity:.6;cursor:default;transform:none!important}
-.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 13px;border-radius:100px;border:1px solid var(--line2);background:transparent;color:var(--muted);font-size:12.5px;font-weight:400;cursor:pointer;transition:border-color .2s,color .2s,background .2s,transform .2s;text-align:left}
-.chip:hover{border-color:var(--coral);color:var(--ink);background:rgba(242,95,76,.08);transform:translateY(-1px)}
-.chip.go{border-color:rgba(242,95,76,.4);color:var(--coral-d)}
-.chip.go::after{content:'›';font-weight:600;margin-left:1px}
-.chip.cta{background:rgba(242,95,76,.1);border-color:rgba(242,95,76,.35);color:var(--coral-d);font-weight:500}
-.iconbtn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);background:var(--pillbg);color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s,background .2s,transform .2s;backdrop-filter:blur(12px)}
-.iconbtn:hover{border-color:var(--coral);color:var(--ink);transform:translateY(-1px)}
-.iconbtn svg{width:16px;height:16px}
+.btn.coral{background:var(--grad);border-color:transparent;color:#fff;font-weight:600;box-shadow:0 14px 34px -12px rgba(242,95,76,.75)}
+.btn.coral:hover{filter:brightness(1.06);box-shadow:0 18px 40px -12px rgba(242,95,76,.85)}
+.btn .arrow{transition:transform .25s var(--ease)}
+.btn:hover .arrow{transform:translateX(3px)}
 
-/* ---- barra superior (fixa, nas duas telas) ---- */
-.top{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:20px max(30px,env(safe-area-inset-right)) 20px max(30px,env(safe-area-inset-left));opacity:0;transition:opacity .9s,background .3s;pointer-events:none;
-  padding-top:max(20px,env(safe-area-inset-top))}
-.top.on{opacity:1;pointer-events:auto}
-.brand{display:flex;align-items:center;gap:12px;cursor:pointer;color:inherit;background:none;border:0;padding:4px;border-radius:14px}
-.brand .word{font-family:var(--sys);font-weight:700;font-size:17px;letter-spacing:-.02em;color:var(--ink);opacity:0;transform:translateX(-6px);transition:opacity .5s,transform .5s}
-.brand .word .i{color:var(--coral)}
-body.corner .brand .word{opacity:1;transform:none}
-.crumb{display:flex;align-items:center;gap:9px;font-family:var(--sys);font-weight:600;font-size:14px;color:var(--muted);opacity:0;transition:opacity .2s;pointer-events:none}
-.crumb.on{opacity:1;transition:opacity .5s .4s}
-.crumb .sep{color:var(--dim);font-weight:400}
-.actions{display:flex;align-items:center;gap:10px}
+/* ---- hero ---- */
+.hero{align-self:center;max-width:min(720px,100%);padding:clamp(18px,4vh,48px) 0 clamp(26px,5vh,56px)}
+.kicker{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink2);margin-bottom:clamp(16px,2.4vh,28px)}
+.kicker::before{content:'';width:34px;height:2px;background:var(--coral);border-radius:2px;flex:none}
+h1{font-weight:800;letter-spacing:-.035em;line-height:.98;font-size:clamp(42px,6.2vw,86px);color:#fff;text-wrap:balance;text-shadow:0 6px 40px rgba(0,0,0,.45)}
+h1 .nova{color:var(--coral);white-space:nowrap}
+.lead{margin-top:clamp(18px,2.6vh,30px);font-size:clamp(19px,2vw,27px);font-weight:400;color:#fff;letter-spacing:-.01em}
+.lead b{font-weight:600}
+.sub{margin-top:8px;font-size:clamp(15px,1.25vw,18px);color:var(--ink2);max-width:60ch}
 
-/* ---- ícone oficial (bloco .logomark do template, escalado via --s) ---- */
-.logomark{--s:.1682;position:relative;width:calc(214px * var(--s));height:calc(214px * var(--s));flex:none}
-.logomark .plate{position:absolute;top:0;left:0;width:214px;height:214px;transform-origin:top left;transform:scale(var(--s));display:flex;align-items:center;justify-content:center}
-.logomark .plate .face{position:absolute;inset:0;border-radius:48px;background:linear-gradient(158deg,#f56a54 0%,#f25f4c 45%,#d8402c 100%);box-shadow:0 24px 60px rgba(216,64,44,.42),inset 0 2px 0 rgba(255,255,255,.18)}
-.logomark .plate .ring{position:absolute;width:158px;height:158px;border-radius:50%;border:2px solid rgba(255,255,255,.38);border-right-color:transparent;border-top-color:transparent;animation:v4spin 16s linear infinite}
-.logomark .plate .ring .dot{position:absolute;bottom:4px;left:4px;width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 14px rgba(255,255,255,.85)}
-.logomark .plate .mono{position:relative;display:block;font-family:var(--sys);font-weight:800;font-size:106px;line-height:1;letter-spacing:-.05em;color:#fff;text-shadow:0 2px 10px rgba(120,20,10,.35)}
-@keyframes v4spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+/* formulário "avise-me" em cápsula */
+.avise{margin-top:clamp(22px,3.6vh,40px);max-width:660px}
+.pill{display:flex;align-items:center;gap:10px;padding:7px 7px 7px 20px;border-radius:18px;border:1px solid var(--line2);background:var(--glass);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
+  box-shadow:0 30px 60px -30px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);transition:border-color .25s,box-shadow .25s}
+.pill:focus-within{border-color:rgba(242,95,76,.6);box-shadow:0 0 0 4px rgba(242,95,76,.16),0 30px 60px -30px rgba(0,0,0,.7)}
+.pill svg{flex:none;color:var(--muted)}
+.pill input{flex:1;min-width:0;height:48px;background:none;border:0;outline:0;font-size:16px;font-weight:300;color:var(--ink)}
+.pill input::placeholder{color:var(--dim)}
+.pill .btn{height:50px;padding:0 26px;flex:none}
+.privacy{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:12.5px;color:var(--muted)}
+.privacy svg{flex:none;color:var(--dim)}
+.status{margin-top:12px;font-size:14px;min-height:1.4em;color:var(--ok)}
+.status.err{color:var(--err)}
+.avise.done .pill,.avise.done .privacy{display:none}
+.avise.done .status{font-size:17px;color:#fff;padding:14px 18px;border-radius:14px;border:1px solid rgba(155,215,178,.35);background:rgba(20,40,30,.45);backdrop-filter:blur(10px);display:flex;gap:10px;align-items:center}
+.avise.done .status::before{content:'✓';display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ok);color:#0b1a12;font-weight:700;font-size:14px;flex:none}
+.hp{position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0} /* honeypot */
 
-/* ---- botão de tema ---- */
-.themebtn{position:fixed;bottom:22px;right:max(22px,env(safe-area-inset-right));z-index:60;display:inline-flex;align-items:center;gap:8px;cursor:pointer;font:600 12.5px/1 var(--sys);color:var(--muted);background:var(--pillbg);border:1px solid var(--line2);border-radius:999px;height:38px;padding:0 15px;backdrop-filter:blur(12px);box-shadow:0 10px 26px -12px rgba(120,60,40,.5);transition:border-color .18s ease,transform .18s ease,opacity .9s;opacity:0;pointer-events:none;
-  bottom:max(22px,env(safe-area-inset-bottom))}
-.themebtn.on{opacity:1;pointer-events:auto}
-.themebtn:hover{border-color:var(--coral);transform:translateY(-2px)}
-.themebtn svg{width:15px;height:15px;color:var(--coral-d)}
-.themebtn .ic-sun,.themebtn .lbl-light{display:none}
-body.dark .themebtn .ic-moon,body.dark .themebtn .lbl-dark{display:none}
-body.dark .themebtn .ic-sun,body.dark .themebtn .lbl-light{display:inline-flex}
+/* ---- cartões: Tecnologia · Inteligência · Conexão ---- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);border-radius:24px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(16px) saturate(1.15);-webkit-backdrop-filter:blur(16px) saturate(1.15);
+  box-shadow:0 40px 80px -40px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.06);margin-bottom:clamp(8px,1.5vh,18px)}
+.card{display:flex;gap:18px;align-items:center;padding:clamp(18px,2.2vh,26px) clamp(18px,2.4vw,34px);min-width:0}
+.card+.card{border-left:1px solid var(--line)}
+.card .ico{flex:none;width:64px;height:64px;border-radius:18px;border:1px solid var(--line2);background:rgba(255,255,255,.05);display:grid;place-items:center;color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.card h2{font-size:17px;font-weight:600;letter-spacing:-.01em;color:#fff;margin-bottom:3px}
+.card p{font-size:14px;color:var(--ink2);text-wrap:pretty}
 
+/* ---- rodapé discreto ---- */
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--dim);padding:6px 4px 0}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--ink2)}
 
 /* ============================================================
-   TELA 2 — O QUADRO (abre abaixo da rede)
+   CONTATO — janela flutuante (único botão do menu por enquanto)
    ============================================================ */
-#s2{position:fixed;inset:0;z-index:15;display:grid;place-items:center;padding:96px 32px 30px;background:var(--scrim);visibility:hidden;opacity:0;transition:opacity .35s,visibility 0s .45s}
-#s2.open{visibility:visible;opacity:1;transition:opacity .3s,visibility 0s}
-/* a janela: translúcida, com margens, nasce do nó clicado (transform-origin) e volta para ele ao fechar */
-.panel{position:relative;width:min(1180px,100%);max-height:100%;overflow:auto;overscroll-behavior:contain;border-radius:30px;background:var(--glass2);border:1px solid var(--glassline);box-shadow:var(--glassshadow);
-  transform-origin:var(--px,50%) var(--py,50%);transform:scale(.12);opacity:0;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .28s}
-#s2.open .panel.in{transform:none;opacity:1}
-.panel.settled{backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2)}
-.panel::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(700px 320px at 50% -8%,rgba(242,95,76,.12),transparent 65%)}
-@media(prefers-reduced-motion:reduce){.panel,#s2{transition:none}}
-.bwrap{position:relative;max-width:1140px;margin:0 auto;display:flex;flex-direction:column;padding:30px 40px 28px}
-.bhead{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:22px}
-.bhead .left{display:flex;align-items:center;gap:12px}
-.bpath{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
-.bpath .sep{color:var(--dim)}
-.bpath .bm{font-family:var(--sys);font-weight:600;color:var(--ink)}
-.bpath .bm .i{color:var(--coral)}
-.bpath .dot{width:9px;height:9px;border-radius:50%;background:var(--grad);flex:none}
-.bpath .dot.p{background:var(--bg);border:1.5px solid var(--coral)}
-.bgrid{display:grid;grid-template-columns:1.12fr .88fr;gap:44px;align-items:center;flex:1;padding:8px 0 4px}
-.btext{opacity:0;transform:translateY(14px);transition:opacity .6s .35s,transform .6s var(--ease) .35s}
-.bmedia{opacity:0;transform:translateY(18px) scale(.98);transition:opacity .6s .5s,transform .7s var(--ease) .5s}
-#s2.open .btext,#s2.open .bmedia{opacity:1;transform:none}
-.bk{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.bk .kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
-.bk .st{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--dim);border:1px solid var(--line2);background:var(--pillbg);padding:4px 11px;border-radius:100px}
-.bk .st.live{color:var(--coral-d);border-color:rgba(242,95,76,.45)}
-.btext h2{font-family:var(--sys);font-weight:700;font-size:clamp(26px,3.2vw,40px);letter-spacing:-.03em;line-height:1.08;color:var(--ink);margin-bottom:18px}
-.btext h2 .i{color:var(--coral)}
-.say{font-size:clamp(15px,1.25vw,17.5px);line-height:1.7;color:var(--ink2);min-height:3.4em;max-width:56ch}
-.say .i{color:var(--coral)}
-.say .cur{display:inline-block;width:7px;height:1em;background:var(--coral);vertical-align:-2px;margin-left:2px;animation:blink 1s step-end infinite}
-@keyframes blink{50%{opacity:0}}
-.say p+p{margin-top:.8em}
-.extra{margin-top:18px;opacity:0;transform:translateY(6px);transition:opacity .5s,transform .5s}
-.extra.on{opacity:1;transform:none}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
-.bfoot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line);flex-wrap:wrap}
-.bfoot .nav{display:flex;gap:8px}
-.bfoot .note{font-size:12px;color:var(--dim)}
+dialog.contato{border:0;padding:0;background:transparent;max-width:min(520px,calc(100vw - 32px));width:100%;margin:auto;color:var(--ink)}
+dialog.contato::backdrop{background:rgba(7,5,11,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.sheet{border-radius:26px;border:1px solid var(--line2);background:var(--glass2);backdrop-filter:blur(22px) saturate(1.2);-webkit-backdrop-filter:blur(22px) saturate(1.2);padding:28px;box-shadow:0 50px 100px -40px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.08);
+  transform:translateY(14px) scale(.98);opacity:0;transition:transform .45s var(--ease),opacity .3s}
+dialog[open] .sheet{transform:none;opacity:1}
+.sheet .k{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--coral);margin-bottom:10px}
+.sheet h2{font-size:26px;font-weight:700;letter-spacing:-.025em;color:#fff;line-height:1.1}
+.sheet .p{margin-top:8px;color:var(--ink2);font-size:15px}
+.sheet .x{position:absolute;right:16px;top:16px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);display:grid;place-items:center;cursor:pointer}
+.sheet .x:hover{background:rgba(242,95,76,.18);border-color:rgba(242,95,76,.5)}
+.field{margin-top:16px;display:grid;gap:7px}
+.field span{font-size:12.5px;letter-spacing:.04em;color:var(--muted)}
+.field input,.field textarea{width:100%;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.04);padding:13px 15px;font-size:15px;font-weight:300;color:var(--ink);outline:0;transition:border-color .2s,box-shadow .2s}
+.field textarea{min-height:120px;resize:vertical;line-height:1.5}
+.field input:focus,.field textarea:focus{border-color:rgba(242,95,76,.65);box-shadow:0 0 0 4px rgba(242,95,76,.15)}
+.sheet .acts{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.sheet .status{margin:0;flex:1;min-width:160px}
+.sheet .alt{font-size:13px;color:var(--muted);margin-top:16px}
+.sheet .alt a{color:var(--ink2)}
 
-/* ---- slot de mídia (animação do nó) ---- */
-.media{position:relative;aspect-ratio:16/10;border-radius:26px;overflow:hidden;background:var(--glass);border:1px solid var(--glassline);box-shadow:var(--glassshadow);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-.media>*{position:absolute;inset:0;width:100%;height:100%}
-.media img,.media video{object-fit:cover;display:block}
-.media .lottie{display:block}
-.media .tag{position:absolute;left:14px;bottom:12px;top:auto;width:auto;height:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);background:var(--pillbg);border:1px solid var(--line2);padding:4px 9px;border-radius:100px}
-/* animação padrão: planeta com órbitas (quando o nó ainda não tem mídia) */
-.orbitz{display:block}
-.orbitz .ring{fill:none;stroke:var(--coral);stroke-opacity:.35;stroke-width:1;stroke-dasharray:3 5}
-.orbitz .ring2{fill:none;stroke:var(--line2);stroke-width:1}
-.orbitz .moon{fill:var(--coral-l)}
-.orbitz .moon2{fill:var(--bg);stroke:var(--coral);stroke-width:1.5}
-.orbitz .halo{fill:url(#halo)}
-.orbitz .r1{animation:spin 18s linear infinite;transform-origin:150px 112px}
-.orbitz .r2{animation:spin 30s linear infinite reverse;transform-origin:150px 112px}
-.orbitz .rs{animation:spin 9s linear infinite;transform-origin:150px 112px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.orbitz .star{fill:var(--ink);opacity:.18}
-.orbitz .lbl{font-family:var(--sys);font-weight:800;font-size:30px;fill:#fff;letter-spacing:-.05em}
-
-/* ---- formulário "avise-me" ---- */
-.form{display:grid;gap:10px;margin-top:22px;max-width:520px}
-.form .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.field{display:flex;flex-direction:column;gap:6px}
-.field label{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-family:var(--mono)}
-.field input,.field select{height:44px;padding:0 14px;border-radius:14px;border:1px solid var(--line2);background:var(--panel);color:var(--ink);font-size:14px;transition:border-color .2s,box-shadow .2s;appearance:none;-webkit-appearance:none}
-.field select{background-image:linear-gradient(45deg,transparent 50%,var(--dim) 50%),linear-gradient(135deg,var(--dim) 50%,transparent 50%);background-position:calc(100% - 20px) 19px,calc(100% - 15px) 19px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:36px}
-.field input:focus,.field select:focus{outline:none;border-color:var(--coral);box-shadow:0 0 0 3px rgba(242,95,76,.15)}
-.form .hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
-.form .send{display:flex;align-items:center;gap:12px;margin-top:4px;flex-wrap:wrap}
-.form .msg{font-size:13px;color:var(--muted)}
-.form .msg.ok{color:var(--ok)}
-.form .msg.err{color:var(--err)}
-.field input[aria-invalid=true]{border-color:var(--err)}
-.form .pv{font-size:11.5px;color:var(--muted);margin-top:2px}
-
-/* ---- navegação acessível (teclado/leitor de tela) ---- */
-.a11y{position:absolute;left:30px;top:96px;z-index:8;display:flex;flex-wrap:wrap;gap:4px;pointer-events:none}
-.a11y button{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;background:none}
-.a11y button:focus-visible{position:static;width:auto;height:auto;clip:auto;pointer-events:auto;padding:6px 10px;border-radius:100px;background:var(--pillbg);color:var(--ink);font-size:12px;border:1px solid var(--coral)}
+/* ============================================================
+   ENTRADA — aparece em cascata (respeita reduzir movimento)
+   ============================================================ */
+.rise{opacity:0;transform:translateY(16px);animation:rise .9s var(--ease) forwards}
+.rise.d1{animation-delay:.15s}.rise.d2{animation-delay:.3s}.rise.d3{animation-delay:.45s}.rise.d4{animation-delay:.6s}.rise.d5{animation-delay:.75s}.rise.d6{animation-delay:.95s}
+@keyframes rise{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .rise{animation:none;opacity:1;transform:none}
+  .bg video{transition:none}
+  .btn,.btn .arrow,.sheet{transition:none}
+}
 
 /* ============================================================
    RESPONSIVO
    ============================================================ */
-@media(max-width:900px){
-  .bgrid{grid-template-columns:1fr;gap:26px;align-items:start}
-  .bmedia{order:-1}
-  #s2{padding:84px 16px 20px}
-  .bwrap{padding:22px 20px 20px}
+@media (max-width:1100px){
+  .cards{grid-template-columns:1fr 1fr}
+  .card:nth-child(3){grid-column:1/-1;border-left:0;border-top:1px solid var(--line)}
 }
-@media(max-width:760px){
-  .top{padding:max(14px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 14px max(16px,env(safe-area-inset-left))}
-  .top .actions #talk{display:none}
-  .a11y{left:16px;top:80px}
-  body.board .themebtn{opacity:0;pointer-events:none}
-  body.corner .hint{display:none}
-  .btn{height:38px;padding:0 15px;font-size:12.5px}
-  .themebtn{height:36px;width:36px;padding:0;justify-content:center;right:max(14px,env(safe-area-inset-right))}
-  .themebtn .lbl-dark,.themebtn .lbl-light{display:none!important}
-  #s2{padding:70px 10px 12px}
-  .panel{border-radius:22px}
-  .bwrap{padding:18px 16px 18px}
-  .panel.settled{backdrop-filter:none;-webkit-backdrop-filter:none}
-  .bpath .mid{display:none}
-  .cword{font-size:clamp(44px,13vw,64px)}
-  .cword.small{font-size:20px}
-  .ctitle h1{font-size:20px;white-space:normal;max-width:60vw}
-  .hero{top:64px;width:calc(100vw - 32px)}
-  .phrase{font-size:16px;height:3em}
-  .legend{display:none}
-  .back{left:max(14px,env(safe-area-inset-left));bottom:max(22px,env(safe-area-inset-bottom))}
-  .hint{bottom:max(24px,env(safe-area-inset-bottom));font-size:9.5px;max-width:calc(100vw - 130px);white-space:normal;text-align:center;line-height:1.5}
-  .brand .word{display:none}
-  .crumb{font-size:12.5px}
-  .bhead{margin-bottom:18px}
-  .btext h2{font-size:24px}
-  .say{font-size:15px}
-  .bfoot{flex-direction:column;align-items:stretch}
-  .bfoot .nav{justify-content:space-between}
-  .form .row{grid-template-columns:1fr}
+@media (max-width:760px){
+  .page{grid-template-rows:auto auto auto;padding-bottom:max(16px,env(safe-area-inset-bottom))}
+  .top{min-height:72px;padding-top:max(14px,env(safe-area-inset-top))}
+  .btn{height:42px;padding:0 18px;font-size:14px}
+  .hero{align-self:start;padding-top:clamp(28px,8vh,70px);padding-bottom:28px}
+  h1{font-size:clamp(38px,11.5vw,56px)}
+  .lead{font-size:19px}
+  .sub{font-size:15px}
+  .pill{flex-direction:column;align-items:stretch;padding:8px;gap:4px}
+  .pill>svg{display:none}
+  .pill input{height:46px;padding:0 12px}
+  .pill .btn{height:50px;width:100%}
+  .cards{grid-template-columns:1fr}
+  .card{padding:16px 18px}
+  .card+.card{border-left:0;border-top:1px solid var(--line)}
+  .card .ico{width:52px;height:52px;border-radius:14px}
+  .card .ico svg{width:24px;height:24px}
+  .bg .shade{background:
+    linear-gradient(180deg,rgba(7,5,11,.78) 0%,rgba(7,5,11,.55) 38%,rgba(7,5,11,.15) 58%,rgba(7,5,11,.2) 72%,rgba(7,5,11,.9) 100%)}
+  .bg img,.bg video{object-position:50% 50%}
+  .foot{justify-content:center;text-align:center}
 }
-@media(max-height:520px){
-  .hero,.legend{display:none}
-  .cword.small{font-size:20px}
-  .hint{bottom:14px}
-}
-@media(prefers-reduced-motion:reduce){
-  *{animation:none!important}
-  .cword{opacity:1;transition:none}
-  .stage{transition:none}
+@media (max-height:620px) and (orientation:landscape){
+  .top{min-height:64px}
+  .hero{padding:8px 0 16px}
+  h1{font-size:clamp(30px,5vw,48px)}
+  .lead{margin-top:10px;font-size:17px}
+  .sub{display:none}
+  .avise{margin-top:14px}
+  .card{padding:12px 18px}
+  .card p{display:none}
+  .card .ico{width:44px;height:44px;border-radius:12px}
 }
 </style>
 </head>
-<body class="dark">
+<body>
 
-<div class="stage" id="stage">
-  <!-- ================= TELA 1: a rede / sistema ================= -->
-  <section class="screen" id="s1" aria-label="Sistema iAtmosfera">
-    <canvas id="net" aria-hidden="true"></canvas>
-    <nav class="a11y" id="a11y" aria-label="Nós do sistema"></nav>
-
-    <div class="hero" id="hero" aria-live="polite">
-      <div class="kick"><i></i><span id="kick">Em breve</span></div>
-      <div class="phrase" id="phrase"></div>
-    </div>
-
-    <div class="cword" id="mark" role="button" aria-label="iAtmosfera — apresentação" tabindex="0"><span class="i">i</span>Atmosfera</div>
-    <div class="ctitle" id="ctitle"><div class="k" id="ck"></div><h1 id="ch" tabindex="0"></h1></div>
-
-    <div class="legend" id="legend">
-      <div><i class="a"></i> <span id="lg-a">onde atuo</span></div>
-      <div><i class="p"></i> <span id="lg-p">como funciono</span></div>
-    </div>
-    <button class="btn ghost sm back" id="back" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg><span>Voltar</span></button>
-    <div class="hint" id="hint"><span class="d">toque em um planeta · arraste para girar</span></div>
-  </section>
-
-  <!-- ================= TELA 2: o quadro (abre abaixo) ================= -->
-  <section class="screen" id="s2" aria-label="Quadro de informações" aria-hidden="true">
-    <div class="panel" id="panel" role="dialog" aria-modal="true">
-    <div class="bwrap">
-      <div class="bhead">
-        <div class="left">
-          <div class="bpath" id="bpath"></div>
-        </div>
-        <button class="iconbtn" id="bclose" type="button" aria-label="Fechar quadro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-      </div>
-
-      <div class="bgrid">
-        <div class="btext">
-          <div class="bk"><span class="kicker" id="bkicker"></span><span class="st" id="bstatus"></span></div>
-          <h2 id="btitle"></h2>
-          <div class="say" id="say"></div>
-          <div class="srx" id="say-sr" aria-live="polite"></div>
-          <div class="extra" id="extra"></div>
-          <div class="chips" id="chips"></div>
-        </div>
-        <div class="bmedia"><div class="media" id="media"></div></div>
-      </div>
-
-      <div class="bfoot">
-        <div class="nav">
-          <button class="btn ghost sm" id="bprev" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg><span>Anterior</span></button>
-          <button class="btn ghost sm" id="bnext" type="button"><span>Próximo</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-        </div>
-        <div class="note" id="bnote"></div>
-        <button class="btn sm" id="bcta" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span>Avise-me quando lançar</span></button>
-      </div>
-    </div>
-    </div>
-  </section>
+<!-- fundo: pôster imediato + vídeo em loop assim que carregar -->
+<div class="bg" aria-hidden="true">
+  <img id="poster" src="assets/video/lancamento-16x9.jpg" alt="" decoding="async" fetchpriority="high">
+  <video id="bg" muted loop playsinline preload="auto" disablepictureinpicture tabindex="-1"></video>
+  <div class="shade"></div>
+  <div class="grain"></div>
 </div>
 
-<!-- barra superior (fixa) -->
-<div class="top" id="top">
-  <div style="display:flex;align-items:center;gap:14px">
-    <button class="brand" id="home" type="button" aria-label="Início"><div class="logomark" role="img" aria-label="iAtmosfera"><div class="plate"><div class="face"></div><div class="ring"><span class="dot"></span></div><span class="mono">A</span></div></div><span class="word"><span class="i">i</span>Atmosfera</span></button>
-    <div class="crumb" id="crumb"><span class="sep">›</span><span id="crumbcur"></span></div>
-  </div>
-  <div class="actions">
-    <a class="btn ghost sm" id="talk" href="mailto:contato@iatmosfera.com.br"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg><span>Falar com a equipe</span></a>
-    <button class="btn sm" id="notify" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span>Avise-me</span></button>
-  </div>
+<div class="page">
+  <header class="top">
+    <a class="brand rise" href="./" aria-label="iAtmosfera — início">
+      <span class="mark" aria-hidden="true">A</span>
+      <span><span class="i">i</span>Atmosfera</span>
+    </a>
+    <nav class="rise d1" aria-label="Principal">
+      <button class="btn" type="button" id="abrirContato">Contato</button>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <p class="kicker rise d1">Lançamento em breve</p>
+    <h1 class="rise d2">Estamos preparando uma <span class="nova">nova atmosfera.</span></h1>
+    <p class="lead rise d3">Em breve, a <b><span class="i">i</span>Atmosfera</b> estará no ar.</p>
+    <p class="sub rise d3">Tecnologia, inteligência e conexão para levar seu ERP a uma nova órbita.</p>
+
+    <form class="avise rise d4" id="avise" action="avise-me.php" method="post" novalidate>
+      <div class="pill">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>
+        <label class="srx" for="email">Seu melhor e-mail</label>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="Seu melhor e-mail" required maxlength="160">
+        <input class="hp" name="site" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn coral" type="submit">Quero ser avisado <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <p class="privacy"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>Seus dados estão seguros. Usaremos apenas para comunicar o lançamento.</p>
+      <p class="status" id="aviseStatus" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+
+  <section class="cards rise d5" aria-label="O que estamos construindo">
+    <article class="card">
+      <div class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3"/><path d="M12 4a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3"/><path d="M9 7.5A2.5 2.5 0 0 0 6 10a2.5 2.5 0 0 0 0 4 2.5 2.5 0 0 0 3 2.5"/><path d="M15 7.5A2.5 2.5 0 0 1 18 10a2.5 2.5 0 0 1 0 4 2.5 2.5 0 0 1-3 2.5"/><path d="M9 12h6"/></svg></div>
+      <div><h2>Tecnologia</h2><p>Soluções inteligentes para o seu ERP.</p></div>
+    </article>
+    <article class="card">
+      <div class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 20v-5"/><path d="M10 20v-9"/><path d="M15 20V7"/><path d="M20 20V4"/></svg></div>
+      <div><h2>Inteligência</h2><p>Dados que impulsionam decisões reais.</p></div>
+    </article>
+    <article class="card">
+      <div class="ico" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="2.4"/><circle cx="6" cy="17" r="2.4"/><circle cx="18" cy="17" r="2.4"/><path d="m10.8 8 -3.6 7M13.2 8l3.6 7M8.4 17h7.2"/></svg></div>
+      <div><h2>Conexão</h2><p>Pessoas, processos e resultados em perfeita sintonia.</p></div>
+    </article>
+  </section>
+
+  <footer class="foot rise d6">
+    <span>© <span id="ano">2026</span> <span class="i">i</span>Atmosfera · Gesto Tecnologia</span>
+    <a href="galaxia.html">explorar o universo <span class="i">i</span>Atmosfera →</a>
+  </footer>
 </div>
 
-<button class="themebtn" id="themebtn" type="button" aria-label="Alternar tema claro/escuro">
-  <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-  <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
-  <span class="lbl-dark">Modo escuro</span>
-  <span class="lbl-light">Modo claro</span>
-</button>
+<!-- Contato -->
+<dialog class="contato" id="contato" aria-labelledby="contatoTitulo">
+  <form class="sheet" id="contatoForm" method="dialog" novalidate style="position:relative">
+    <button class="x" type="button" id="fecharContato" aria-label="Fechar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <p class="k">Contato</p>
+    <h2 id="contatoTitulo">Fale com a gente</h2>
+    <p class="p">Conte o que você precisa. Respondemos em até um dia útil.</p>
+    <label class="field"><span>Nome</span><input name="nome" type="text" autocomplete="name" maxlength="120" required></label>
+    <label class="field"><span>E-mail</span><input name="email" type="email" inputmode="email" autocomplete="email" maxlength="160" required></label>
+    <label class="field"><span>Mensagem</span><textarea name="mensagem" maxlength="2000" required></textarea></label>
+    <input class="hp" name="site" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="acts">
+      <button class="btn coral" type="submit">Enviar mensagem <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <p class="status" id="contatoStatus" role="status" aria-live="polite"></p>
+    </div>
+    <p class="alt">Prefere e-mail? <a id="mailto" href="mailto:contato@iatmosfera.com.br">contato@iatmosfera.com.br</a></p>
+  </form>
+</dialog>
 
-<!-- animação padrão dos quadros (usada quando o nó ainda não tem mídia própria) -->
-<template id="tpl-orbitz">
-<svg class="orbitz" viewBox="0 0 300 224" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <defs>
-    <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f25f4c" stop-opacity=".35"/><stop offset="1" stop-color="#f25f4c" stop-opacity="0"/></radialGradient>
-    <linearGradient id="pl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8b6b"/><stop offset=".5" stop-color="#f25f4c"/><stop offset="1" stop-color="#d8402c"/></linearGradient>
-  </defs>
-  <g class="stars">
-    <circle class="star" cx="28" cy="34" r="1.2"/><circle class="star" cx="262" cy="26" r="1"/><circle class="star" cx="240" cy="190" r="1.4"/><circle class="star" cx="56" cy="188" r="1"/><circle class="star" cx="284" cy="120" r="1.1"/><circle class="star" cx="18" cy="118" r="1"/><circle class="star" cx="150" cy="14" r="1"/><circle class="star" cx="196" cy="206" r="1.1"/>
-  </g>
-  <circle class="halo" cx="150" cy="112" r="98"/>
-  <g transform="translate(150 112) rotate(-18) translate(-150 -112)">
-    <ellipse class="ring2" cx="150" cy="112" rx="118" ry="44"/>
-    <g class="r2"><circle class="moon2" cx="268" cy="112" r="6"/></g>
-  </g>
-  <g transform="translate(150 112) rotate(14) translate(-150 -112)">
-    <ellipse class="ring" cx="150" cy="112" rx="78" ry="30"/>
-    <g class="r1"><circle class="moon" cx="228" cy="112" r="4.5"/></g>
-  </g>
-  <circle cx="150" cy="112" r="34" fill="url(#pl)"/>
-  <g class="rs"><circle cx="150" cy="112" r="45" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.5" stroke-dasharray="180 100"/><circle cx="195" cy="112" r="2.6" fill="#fff"/></g>
-  <text class="lbl" x="150" y="123" text-anchor="middle">A</text>
-</svg>
-</template>
 <script>
 /* ============================================================
-   CONTEÚDO — tudo o que é texto e estrutura vive aqui.
-   Para mudar frases, nós, quadros e animações, edite só este bloco.
-
-   Nó: { id, label (rótulo na órbita), curto (rótulo ainda menor, só no celular — opcional), titulo (título do quadro),
-         status (pílula), texto (parágrafos separados por linha em branco),
-         chips: [[rótulo, destino]], media: null | {type,src,...},
-         sub: { intro:{...}, aneis:[...] }  → o nó tem um sistema próprio (o quadro ganha o chip "Explorar";
-         com abrir:'sistema' o clique entra direto no sistema) }
-   Destinos de chip: id de nó · 'sistema:<id>' (entra no sistema do nó) · 'intro' · 'avise' · 'mail'
-   Mídia: {type:'lottie'|'video'|'image'|'svg', src:'assets/animacoes/arquivo', poster?, alt?}
+   CONFIGURAÇÃO — troque aqui os caminhos e o e-mail de contato
    ============================================================ */
-const CONTEUDO = {
-  email: 'contato@iatmosfera.com.br',
+const CONFIG = {
+  video16x9: 'assets/video/lancamento-16x9.mp4',
+  video9x16: 'assets/video/lancamento-9x16.mp4',
+  poster16x9: 'assets/video/lancamento-16x9.jpg',
+  poster9x16: 'assets/video/lancamento-9x16.jpg',
+  emailContato: 'contato@iatmosfera.com.br',
   endpointAvise: 'avise-me.php',
-  kicker: 'Em breve',
-  // frases do topo — trocam sozinhas a cada poucos segundos (substitua pelas suas)
-  frases: [
-    'A IA que não sugere: <b>executa</b>.',
-    'Agentes que trabalham <b>dentro</b> do seu sistema de gestão.',
-    'Lê, decide e grava — com uma pessoa aprovando <b>o que tem peso</b>.',
-    'Cada ação com <b>nome, hora e motivo</b>.',
-    'Ainda em preparação. Deixe o e-mail e <b>eu aviso</b> quando abrir.',
-  ],
-  legenda: { areas: 'onde atuo', principios: 'como funciono' },
-  dica: { mouse: 'clique em um planeta · arraste para girar', toque: 'toque em um planeta · arraste para girar' },
-  /* textos da interface (botões, rótulos, título da aba) */
-  ui: {
-    titulo: 'iAtmosfera — em breve', descricao: 'iAtmosfera — a IA que executa dentro do seu sistema de gestão. Em breve.',
-    falar: 'Falar com a equipe', avise: 'Avise-me', aviseLongo: 'Avise-me quando lançar', voltar: 'Voltar',
-    anterior: 'Anterior', proximo: 'Próximo', fechar: 'Fechar quadro', explorar: 'Explorar', sistema: 'sistema',
-    abreSistema: 'abre um sistema', contador: '{i} de {n} · {anel}', midiaPendente: 'animação em preparação',
-    temaEscuro: 'Modo escuro', temaClaro: 'Modo claro', apresentacao: 'iAtmosfera — apresentação', aviseCaminho: 'avise-me',
-  },
-  form: {
-    email: 'E-mail', emailPlaceholder: 'voce@empresa.com.br', nome: 'Nome (opcional)', nomePlaceholder: 'Seu nome',
-    erp: 'Sistema de gestão (opcional)', erpVazio: 'Selecione (opcional)', erps: ['TOTVS Datasul', 'TOTVS Protheus', 'TOTVS RM', 'SAP', 'Oracle', 'Outro'],
-    enviar: 'Avise-me', enviando: 'Enviando…', ok: 'Pronto. Avisamos você no dia do lançamento.', registrado: 'Registrado',
-    emailInvalido: 'Confira o e-mail.', fallback: 'Abrindo o seu e-mail para concluir…',
-    privacidade: 'Usamos o e-mail só para avisar do lançamento. Sem newsletter, sem repasse.',
-    assunto: 'Avise-me quando lançar — iAtmosfera', corpo: 'Quero receber o aviso do lançamento da iAtmosfera.',
-  },
-  intro: {
-    kicker: 'plataforma', titulo: 'Prazer, <span class="i">i</span>Atmosfera.', status: 'em preparação',
-    texto: 'Sou uma plataforma de agentes de IA que executam dentro do sistema de gestão que a sua empresa já usa. Não sugiro: leio, decido e gravo, pelos canais oficiais, com uma pessoa aprovando o que tem peso.\n\nAinda estou em preparação. Cada planeta destas órbitas conta um pedaço do que está por vir — escolha um deles.',
-    chips: [['Como executo', 'executa'], ['Autonomia por atividade', 'autonomia']],
-    media: null,
-  },
-  aneis: [
-    /* ---------- órbita interna: princípios ---------- */
-    { id: 'principios', nome: 'Como funciono', tipo: 'principio', nos: [
-      { id: 'executa', label: 'Executa', titulo: 'Não sugere. Executa.', status: 'princípio',
-        texto: 'Quase toda IA corporativa para na resposta e devolve o trabalho para uma pessoa. Comigo é diferente: leio o que está no sistema, decido dentro dos limites combinados e gravo o resultado no próprio sistema de gestão.\n\nO trabalho sai feito — não descrito.',
-        chips: [['Pelos canais oficiais', 'canais'], ['Quem aprova o quê', 'autonomia']], media: null },
-      { id: 'canais', label: 'Canais oficiais', curto: 'Canais', titulo: 'Pelos canais oficiais do seu sistema.', status: 'princípio',
-        texto: 'Nada de robô clicando em tela e nada de mexer direto no banco de dados. Uso os canais de integração que o próprio fabricante publica e mantém.\n\nÉ o caminho mais lento de construir — e o único que aguenta anos de operação sem quebrar a cada atualização.',
-        chips: [['Um satélite no seu ambiente', 'satelite'], ['Tudo registrado', 'auditoria']], media: null },
-      { id: 'autonomia', label: 'Autonomia', titulo: 'Autonomia, atividade por atividade.', status: 'princípio',
-        texto: 'Cada atividade recebe um nível — e o nível sobe conforme a confiança cresce. Análise: eu proponho, o seu time executa. Assistido: o rotineiro sai sozinho, o que tem peso espera aprovação. Autônomo: executo dentro dos limites que você definiu.\n\nAção crítica nunca acontece sem uma pessoa dizer sim. Isso é arquitetura, não configuração.',
-        chips: [['Ver os três níveis', 'sistema:autonomia'], ['Cada ação registrada', 'auditoria']], media: null,
-        sub: {
-          intro: { kicker: 'níveis', titulo: 'Três níveis. Você escolhe por atividade.', status: 'governança',
-            texto: 'Quase todo mundo começa em Análise, em um único setor, e sobe a autonomia conforme a confiança cresce. Escolha um nível para ver o que ele significa na prática.',
-            chips: [['Voltar ao início', 'intro-hub']], media: null },
-          aneis: [
-            { id: 'niveis', nome: 'Níveis de autonomia', tipo: 'nivel', nos: [
-              { id: 'analise', label: 'Análise', titulo: 'Análise: eu proponho.', status: 'só leitura',
-                texto: 'Detecto, classifico e priorizo. Quem executa é o seu time, com a causa explicada em linguagem de negócio e a tela exata onde resolver.\n\nÉ visibilidade total sem mudar uma vírgula na operação.', chips: [['Próximo nível', 'assistido']], media: null },
-              { id: 'assistido', label: 'Assistido', titulo: 'Assistido: o rotineiro sai sozinho.', status: 'aprovação no painel',
-                texto: 'O que se repete todo mês, eu executo. O que tem peso — valor alto, exceção, caso fora do padrão — para no painel e espera uma pessoa dizer sim.', chips: [['Próximo nível', 'autonomo']], media: null },
-              { id: 'autonomo', label: 'Autônomo', titulo: 'Autônomo: dentro dos seus limites.', status: 'dentro dos seus limites',
-                texto: 'Executo por conta própria dentro dos limites de valor e alçada que você definiu. Mesmo aqui, a ação crítica continua exigindo aprovação humana — e o desligamento imediato está sempre à mão.', chips: [['Como fica o registro', 'auditoria']], media: null },
-            ] },
-          ],
-        } },
-      { id: 'auditoria', label: 'Auditoria', titulo: 'Cada ação tem nome, hora e motivo.', status: 'princípio',
-        texto: 'Tudo o que leio, decido e gravo fica registrado — o que vi, por que decidi e quem aprovou. Se um dia alguém perguntar “por que isso foi feito?”, a resposta já está lá.\n\nE o botão de desligar está sempre à mão.',
-        chips: [['Como decide', 'autonomia'], ['Onde atuo', 'compras']], media: null },
-      { id: 'satelite', label: 'Satélite', titulo: 'Um satélite no seu ambiente.', status: 'princípio',
-        texto: 'A inteligência fica na nuvem. Os seus dados ficam onde sempre estiveram. Um componente leve, instalado no seu ambiente, cuida da comunicação entre mim e o seu sistema de gestão.\n\nSem abrir portas para fora, sem servidor novo, sem a sua TI virar refém do projeto.',
-        chips: [['Pelos canais oficiais', 'canais'], ['Cada ação registrada', 'auditoria']], media: null },
-    ] },
-    /* ---------- órbita externa: áreas de atuação ---------- */
-    { id: 'areas', nome: 'Onde atuo', tipo: 'area', nos: [
-      { id: 'compras', label: 'Compras', titulo: 'Compras e estoque.', status: 'em preparação',
-        texto: 'Da requisição ao recebimento: acompanho o que foi pedido, o que foi comprado e o que chegou — e aviso antes de faltar.\n\nCotação fora do padrão, fornecedor atrasando, item parado na aprovação: tudo aparece antes de virar problema.', chips: [['Como executo', 'executa']], media: null },
-      { id: 'financeiro', label: 'Financeiro', titulo: 'Financeiro.', status: 'em preparação',
-        texto: 'Do título ao caixa: lanço, concilio e projeto — e mostro quem vai atrasar antes de atrasar.\n\nO que mexe com dinheiro passa sempre por uma pessoa.', chips: [['Quem aprova o quê', 'autonomia']], media: null },
-      { id: 'pessoas', label: 'Pessoas', titulo: 'Pessoas e folha.', status: 'em preparação',
-        texto: 'Da admissão ao fechamento da folha: as rotinas que se repetem todo mês, com os prazos legais sob controle.\n\nConfiro o cadastro antes de gravar, na ordem certa, para não duplicar nada.', chips: [['Cada ação registrada', 'auditoria']], media: null },
-      { id: 'producao', label: 'Produção', titulo: 'Produção e planejamento.', status: 'em preparação',
-        texto: 'Do plano ao apontamento: mantenho as ordens andando, explico as variações entre previsto e realizado e aviso o que vai parar por falta de material.', chips: [['Como executo', 'executa']], media: null },
-      { id: 'fiscal', label: 'Fiscal e contábil', curto: 'Fiscal', titulo: 'Fiscal e contábil.', status: 'em preparação',
-        texto: 'Do lançamento à obrigação acessória: concilio, apuro e mostro o que não fecha — antes do prazo, com a exceção explicada, não só listada.', chips: [['Pelos canais oficiais', 'canais']], media: null },
-      { id: 'comercial', label: 'Comercial', titulo: 'Comercial e faturamento.', status: 'em preparação',
-        texto: 'Do pedido ao faturamento: registro, altero e acompanho os pedidos, valido crédito e estoque antes de gravar — e mostro para onde a carteira está indo.', chips: [['Quem aprova o quê', 'autonomia']], media: null },
-      { id: 'logistica', label: 'Logística', titulo: 'Logística e expedição.', status: 'em preparação',
-        texto: 'Do embarque ao frete: preparo a saída, acompanho a entrega e trato a exceção antes de virar reclamação.', chips: [['Um satélite no seu ambiente', 'satelite']], media: null },
-      { id: 'qualidade', label: 'Qualidade', titulo: 'Qualidade e manutenção.', status: 'em preparação',
-        texto: 'Da ordem de manutenção à não conformidade: abro, acompanho e cobro — e cuido do que vence antes da auditoria.', chips: [['Cada ação registrada', 'auditoria']], media: null },
-    ] },
-  ],
-  avise: {
-    kicker: 'lançamento', titulo: 'Avise-me quando lançar.', status: 'em breve',
-    texto: 'Deixe o seu e-mail e você recebe um aviso no dia em que a plataforma abrir — e nada além disso.',
-    chips: [], media: null,
-  },
+  endpointContato: 'contato.php',
 };
 
-/* ============================================================
-   MODELO — páginas (sistemas) e nós indexados a partir do conteúdo
-   ============================================================ */
-const P = {}, N = {};
-function registerSystem(id, title, aneis, parent, intro) {
-  P[id] = { id, title, aneis, parent, intro: intro || null };
-  aneis.forEach(r => r.nos.forEach(n => {
-    N[n.id] = Object.assign({}, n, { sys: id, ringId: r.id, ringNome: r.nome, tipo: r.tipo });
-    if (n.sub) registerSystem(n.id, n.label, n.sub.aneis, id, n.sub.intro);
-  }));
-}
-registerSystem('hub', 'iAtmosfera', CONTEUDO.aneis, null, CONTEUDO.intro);
-Object.values(P).forEach(pg => pg.aneis.forEach(r => { if (r.nos.length > 9) console.warn(`iAtmosfera: a órbita "${r.nome}" tem ${r.nos.length} nós; acima de 9 os rótulos se atropelam.`);
-  r.nos.forEach(c => { if (c.label.length > 18) console.warn(`iAtmosfera: rótulo "${c.label}" tem mais de 18 caracteres — use "curto" para o celular.`); if (c.chips) c.chips.forEach(([, to]) => { if (!(N[to] || ['intro', 'avise', 'mail', 'intro-hub'].includes(to) || (to.startsWith('sistema:') && P[to.slice(8)]))) console.warn(`iAtmosfera: chip com destino desconhecido "${to}" no nó "${c.id}".`); }); }); }));
-
-/* ============================================================
-   ELEMENTOS, TEMA
-   ============================================================ */
 const $ = id => document.getElementById(id);
-const cv = $('net'), ctx = cv.getContext('2d');
-const stage = $('stage'), s1 = $('s1'), s2 = $('s2'), mark = $('mark'), ctitle = $('ctitle'), hero = $('hero'),
-      legend = $('legend'), hint = $('hint'), topbar = $('top'), crumb = $('crumb'), crumbcur = $('crumbcur'),
-      a11y = $('a11y'), say = $('say'), chipsEl = $('chips'), extra = $('extra'), mediaEl = $('media');
-const DEG = Math.PI / 180, TAU = Math.PI * 2;
-const T = {};
-function readTheme() {
-  const dk = document.body.classList.contains('dark'); const cs = getComputedStyle(document.body);
-  T.dark = dk; T.bg = cs.getPropertyValue('--bg').trim() || (dk ? '#0e0a08' : '#ffffff');
-  T.c = dk ? '255,139,107' : '216,64,44'; T.k = dk ? 1 : 1.5; T.kl = dk ? 1 : 1.9;
-  T.ink = dk ? '247,236,232' : '36,23,19'; T.muted = dk ? '183,156,146' : '122,98,89'; T.dimN = dk ? '122,98,89' : '160,139,130';
-  $('themecolor').setAttribute('content', T.bg);
+$('ano').textContent = new Date().getFullYear();
+$('mailto').href = 'mailto:' + CONFIG.emailContato;
+$('mailto').textContent = CONFIG.emailContato;
+
+/* ---------- fundo: escolhe 16:9 ou 9:16 e só liga o vídeo quando faz sentido ---------- */
+(() => {
+  const poster = $('poster'), video = $('bg');
+  const portrait = matchMedia('(orientation: portrait)');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const saveData = navigator.connection && navigator.connection.saveData;
+  let atual = '';
+  const aplicar = () => {
+    const p = portrait.matches;
+    poster.src = p ? CONFIG.poster9x16 : CONFIG.poster16x9;
+    const src = p ? CONFIG.video9x16 : CONFIG.video16x9;
+    if (reduce.matches || saveData) { video.classList.remove('on'); video.removeAttribute('src'); atual = ''; return; }
+    if (src === atual) return;
+    atual = src;
+    video.classList.remove('on');
+    video.src = src;
+    video.load();
+    video.play().catch(() => {});
+  };
+  video.addEventListener('playing', () => video.classList.add('on'));
+  video.addEventListener('error', () => { video.classList.remove('on'); }); // sem vídeo? fica o pôster, sem alarde
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && video.src) video.play().catch(() => {}); });
+  portrait.addEventListener('change', aplicar);
+  reduce.addEventListener('change', aplicar);
+  aplicar();
+})();
+
+/* ---------- envio genérico: tenta o PHP; se não houver servidor, abre o e-mail ---------- */
+async function enviar(endpoint, dados) {
+  const r = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados) });
+  if (r.status === 422) return { ok: false, erro: 'invalido' };
+  if (!r.ok) throw new Error('http ' + r.status);
+  const j = await r.json().catch(() => ({}));
+  return j.ok ? { ok: true } : { ok: false, erro: j.erro || 'servidor' };
 }
-function setTheme(dk) { document.body.classList.toggle('dark', dk); try { localStorage.setItem('iat-theme', dk ? 'dark' : 'light'); } catch (e) {} readTheme(); }
-try { const sv = localStorage.getItem('iat-theme'); if (sv) document.body.classList.toggle('dark', sv === 'dark'); } catch (e) {}
-readTheme();
-$('themebtn').onclick = () => setTheme(!document.body.classList.contains('dark'));
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-/* aplica os textos de interface do CONTEUDO na página */
-(function applyUi() { const u = CONTEUDO.ui; document.title = u.titulo; const md = document.querySelector('meta[name=description]'); if (md) md.setAttribute('content', u.descricao);
-  $('talk').querySelector('span').textContent = u.falar; $('notify').querySelector('span').textContent = u.avise; $('bcta').querySelector('span').textContent = u.aviseLongo;
-  $('bprev').querySelector('span').textContent = u.anterior; $('bnext').querySelector('span').textContent = u.proximo; $('back').querySelector('span').textContent = u.voltar;
-  $('bclose').setAttribute('aria-label', u.fechar); mark.setAttribute('aria-label', u.apresentacao);
-  document.querySelector('.themebtn .lbl-dark').textContent = u.temaEscuro; document.querySelector('.themebtn .lbl-light').textContent = u.temaClaro; })();
+const emailValido = v => /^[^\s@]{1,64}@[^\s@]+\.[^\s@]{2,}$/.test(v);
 
-/* ============================================================
-   MOTOR 3D — anéis inclinados, profundidade, rotação, arrasto
-   ============================================================ */
-let W, H, DPR, cx, cy, compact, mobile, short, F = 1500;
-let rings = [], nodes = [], belt = [], stars = [], pulses = [], outgoing = [], comets = [];
-let progress = 0, started = false, shownOnce = false, hover = null, selected = null, sys = 'hub';
-let t0 = performance.now(), last = t0, tt = 0;
-let spd = 1, spdT = 1, dragTh = 0, dragTilt = 0, dragTiltT = 0, dragging = false, boardOpen = false, boardT = 0;
-let WRX = 90, WRY = 26, mx = -1e4, my = -1e4; const rotKeep = {};
-
-function ease(x) { return 1 - Math.pow(1 - x, 3); }
-function setCenterVar() { const d = document.documentElement.style; d.setProperty('--cx', cx + 'px'); d.setProperty('--cy', cy + 'px'); }
-/* meia-largura estimada do "sol" (palavra pequena ou título do sistema), sem depender do DOM já ter transicionado */
-function sunHalf(pg) {
-  const hub = pg.id === 'hub';
-  const fs = (mobile || short) ? 20 : hub ? Math.max(26, Math.min(38, W * .03)) : Math.max(24, Math.min(36, W * .03));
-  ctx.font = `700 ${fs}px -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif`;
-  return { x: ctx.measureText(hub ? 'iAtmosfera' : pg.title).width / 2 + 14, y: fs * (hub ? .62 : .95) + 12 };
-}
-function measureCenter() { const el = sys === 'hub' ? mark : ctitle; const r = el.getBoundingClientRect(); WRX = r.width / 2 + 14; WRY = r.height / 2 + 12; }
-function edge(n) { const dx = n.x - cx, dy = n.y - cy; const t = Math.atan2(dy * WRX, dx * WRY); return { x: cx + WRX * Math.cos(t), y: cy + WRY * Math.sin(t) }; }
-
-function makeStars() {
-  const n = compact ? 55 : 130; stars = [];
-  for (let i = 0; i < n; i++) stars.push({ x: Math.random() * W, y: Math.random() * H, z: .3 + Math.random() * .7, vx: (Math.random() - .5) * .16, vy: (Math.random() - .5) * .16, s: Math.random() * 1.3 + .4 });
-}
-
-function resize() {
-  const oW = W, oH = H;
-  DPR = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight;
-  cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-  compact = W < 900; mobile = W < 760;
-  short = H < 520;
-  cx = W / 2; cy = short ? H * .55 : compact ? H * .47 : H * .53; setCenterVar();
-  if (!stars.length || (W < 900) !== (oW < 900) || !oW) makeStars(); else for (const a of stars) { a.x *= W / oW; a.y *= H / oH; }
-  buildSystem(sys, false); setTimeout(measureCenter, 60);
-}
-addEventListener('resize', resize);
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => setTimeout(measureCenter, 50));
-
-function nodeRadius(tipo) {
-  const base = tipo === 'area' ? 9 : tipo === 'principio' ? 7 : 6.5;
-  return compact ? base * .82 : base;
-}
-
-function buildSystem(pid, animate, from) {
-  const pg = P[pid]; const old = nodes; const prev = animate ? null : Object.fromEntries(old.map(o => [o.id, o]));
-  if (animate && old.length) outgoing = old.map(n => ({ x: n.x, y: n.y, r: n.r, a: 1 }));
-  nodes = []; rings = []; belt = [];
-  const topLimit = short ? 100 : compact ? (mobile ? 150 : 175) : 158, botLimit = H - (short ? 56 : compact ? 74 : 84);
-  const roomV = Math.max(60, Math.min(cy - topLimit, botLimit - cy) - 22);
-  /* retrato (celular): a elipse fica em pé — o eixo longo usa a altura da tela */
-  const portrait = mobile && H > W * 1.1;
-  const phiBase = (portrait ? 30 : short ? 26 : compact ? 48 : 32) * DEG;
-  let R2;
-  if (portrait) { const smax = 1 / (1 - Math.cos(phiBase) / 4); R2 = Math.min(roomV, (W / 2 - 66) / (Math.sin(phiBase) * smax), H * .3); }
-  else if (short) R2 = Math.min(W / 2 - 150, roomV / Math.sin(phiBase));
-  else if (compact) R2 = Math.min(W / 2 - 62, roomV / Math.sin(phiBase), H * .36);
-  else R2 = Math.min(H * .5, W / 2 - 130, roomV / Math.sin(phiBase));
-  const sh = sunHalf(pg); WRX = sh.x; WRY = sh.y; /* corrigido por measureCenter() quando o DOM assenta */
-  R2 = Math.max(R2, compact ? 96 : 150);
-  if (!portrait) R2 = Math.max(R2, (sh.x + 26) / (pg.aneis.length === 1 ? .8 : .55)); /* a órbita interna nunca encosta na palavra */
-  F = R2 * 4;
-  const n = pg.aneis.length;
-  pg.aneis.forEach((rc, k) => {
-    const f = n === 1 ? .8 : (portrait ? .58 : .55) + (portrait ? .42 : .45) * k / (n - 1);
-    const phi = phiBase + (n - 1 - k) * 8 * DEG;
-    const roll = (portrait ? 90 : 0) + (k % 2 ? 9 : -6) * (portrait ? .4 : 1);
-    const ring = { id: rc.id, nome: rc.nome, tipo: rc.tipo, R: R2 * f, phi, breath: 2.4 * DEG, ph2: k * 1.7,
-      roll: roll * DEG, omega: TAU / (120 + 70 * (n === 1 ? 1 : k / (n - 1))), rot: rotKeep[pid + '/' + rc.id] || 0,
-      labelMode: portrait ? 'auto' : (compact && !short) ? 'v' : 'out', idx: k, delay: k * .16, cr: 0, sr: 0 };
-    ring.cr = Math.cos(ring.roll); ring.sr = Math.sin(ring.roll);
-    rings.push(ring);
-    const m = rc.nos.length;
-    rc.nos.forEach((c, i) => {
-      const th0 = -Math.PI / 2 + i * TAU / m + k * .7;
-      const p0 = prev && prev[c.id]; /* ao redimensionar, cada planeta continua de onde estava */
-      nodes.push({ id: c.id, label: (mobile && c.curto) || c.label, tipo: rc.tipo, ring, th0, r: nodeRadius(rc.tipo), sub: !!c.sub,
-        x: from ? from.x : p0 ? p0.x : cx, y: from ? from.y : p0 ? p0.y : cy, d: 0, s: 1, g: p0 ? p0.g : 0, a: p0 ? p0.a : 0, da: 1, lv: p0 ? p0.lv : undefined, li: nodes.length,
-        ph: p0 ? p0.ph : Math.random() * TAU, sp: p0 ? p0.sp : .4 + Math.random() * .5, amp: compact ? 3 : 6 }); /* flutuação própria de cada nó, como na referência */
-    });
+/* ---------- avise-me ---------- */
+(() => {
+  const form = $('avise'), status = $('aviseStatus'), email = $('email');
+  let ocupado = false;
+  form.addEventListener('submit', async ev => {
+    ev.preventDefault();
+    if (ocupado) return;
+    const v = email.value.trim().toLowerCase();
+    status.classList.remove('err');
+    if (!emailValido(v)) { status.textContent = 'Confira o e-mail, parece que falta alguma coisa.'; status.classList.add('err'); email.focus(); return; }
+    ocupado = true;
+    const btn = form.querySelector('button[type=submit]'); btn.disabled = true; status.textContent = 'Enviando…';
+    try {
+      const res = await enviar(CONFIG.endpointAvise, { email: v, site: form.site.value });
+      if (res.ok) { form.classList.add('done'); status.textContent = 'Pronto! Você será a primeira pessoa a saber quando a iAtmosfera estiver no ar.'; }
+      else { status.textContent = res.erro === 'invalido' ? 'Esse e-mail não foi aceito. Confira e tente de novo.' : 'Não deu certo agora. Tente novamente em instantes.'; status.classList.add('err'); }
+    } catch (e) {
+      // sem PHP (ex.: pré-visualização) — abre o e-mail do visitante com o pedido pronto
+      location.href = 'mailto:' + CONFIG.emailContato + '?subject=' + encodeURIComponent('Quero ser avisado do lançamento da iAtmosfera') + '&body=' + encodeURIComponent('Meu e-mail: ' + v);
+      status.textContent = 'Abrimos o seu e-mail para concluir o pedido.';
+    } finally { ocupado = false; btn.disabled = false; }
   });
-  if (n >= 2) {
-    const a = rings[n - 2], b = rings[n - 1]; const Rb = (a.R + b.R) / 2, phi = (a.phi + b.phi) / 2;
-    const rollB = (a.roll + b.roll) / 2 + 1.5 * DEG;
-    const ringB = { R: Rb, phi, breath: 2 * DEG, ph2: .9, roll: rollB, omega: TAU / 150, rot: 0, delay: .1, cr: Math.cos(rollB), sr: Math.sin(rollB) };
-    const cnt = compact ? 34 : 64;
-    for (let i = 0; i < cnt; i++) belt.push({ ring: ringB, th0: Math.random() * TAU, k: .93 + Math.random() * .14, s: .5 + Math.random() * 1.1, x: cx, y: cy, d: 0 });
-    rings.push(Object.assign(ringB, { belt: true }));
-  }
-  if (!animate) { selected = selected ? nodes.find(n => n.id === selected.id) || null : null; hover = null; if (selected) selected.g = 1; }
-  buildA11y(pg);
-}
-function buildA11y(pg) {
-  a11y.innerHTML = '';
-  pg.aneis.forEach(r => r.nos.forEach(c => {
-    const b = document.createElement('button'); b.type = 'button'; b.textContent = c.label + (c.sub ? ' (' + CONTEUDO.ui.abreSistema + ')' : '');
-    b.onfocus = () => { hover = nodes.find(n => n.id === c.id) || null; }; b.onblur = () => { hover = null; };
-    b.onclick = () => activate(nodes.find(n => n.id === c.id)); a11y.appendChild(b);
-  }));
-}
+})();
 
-function project(ring, th, grow, kR) {
-  const phi = ring.phi + (reduce ? 0 : ring.breath * Math.sin(tt * .05 + ring.ph2)) + dragTilt;
-  const R = ring.R * (kR || 1);
-  const u = R * Math.cos(th), w = R * Math.sin(th);
-  const v = w * Math.sin(phi), d = w * Math.cos(phi);
-  const s = F / (F - d);
-  const X = (u * ring.cr - v * ring.sr) * s, Y = (u * ring.sr + v * ring.cr) * s;
-  return { x: cx + X * grow, y: cy + Y * grow, d, s, dmax: R * Math.cos(phi) };
-}
-
-function hit(x, y) { let best = null, bd = 1e9; for (const n of nodes) { const d = Math.hypot(n.x - x, n.y - y); if (d < Math.max(22, n.r * n.s + 14) && d < bd) { best = n; bd = d; } } return best; }
-
-function draw(now) {
-  const dt = Math.min(.05, (now - last) / 1000); last = now; tt = (now - t0) / 1000;
-  spd += (spdT - spd) * .06; dragTilt += (dragTiltT - dragTilt) * .1; if (!dragging) dragTiltT *= .985;
-  const p = ease(progress);
-  const growOf = r => ease(Math.max(0, Math.min(1, progress * 1.3 - (r.delay || 0))));
-  ctx.clearRect(0, 0, W, H);
-
-  /* fundo: partículas em rede (efeito neural) com paralaxe leve */
-  const px = (mx > -1e3 ? (mx - cx) : 0) * .012, py = (my > -1e3 ? (my - cy) : 0) * .012;
-  for (const a of stars) { if (!reduce) { a.x += a.vx; a.y += a.vy; } if (a.x < 0) a.x = W; if (a.x > W) a.x = 0; if (a.y < 0) a.y = H; if (a.y > H) a.y = 0; a.sx = a.x - px * a.z; a.sy = a.y - py * a.z; }
-  const lim = compact ? 90 : 120; ctx.lineWidth = 1;
-  for (let i = 0; i < stars.length; i++) { const a = stars[i];
-    for (let j = i + 1; j < stars.length; j++) { const b = stars[j]; const dx = a.sx - b.sx, dy = a.sy - b.sy, d = dx * dx + dy * dy;
-      if (d < lim * lim) { ctx.strokeStyle = `rgba(${T.c},${(1 - Math.sqrt(d) / lim) * .08 * T.k * Math.max(p, .3)})`; ctx.beginPath(); ctx.moveTo(a.sx, a.sy); ctx.lineTo(b.sx, b.sy); ctx.stroke(); } }
-    ctx.fillStyle = `rgba(${T.c},${.22 * T.k * a.z})`; ctx.beginPath(); ctx.arc(a.sx, a.sy, a.s, 0, 7); ctx.fill(); }
-
-  /* rotação dos anéis */
-  if (!reduce) for (const r of rings) { r.rot += r.omega * dt * spd; if (r.id) rotKeep[sys + '/' + r.id] = r.rot; }
-
-  /* posições projetadas */
-  for (const n of nodes) {
-    const q = project(n.ring, n.th0 + n.ring.rot + dragTh, growOf(n.ring));
-    const fx = reduce ? 0 : Math.cos(tt * n.sp + n.ph) * n.amp * q.s, fy = reduce ? 0 : Math.sin(tt * n.sp * .8 + n.ph) * n.amp * q.s;
-    n.x += (q.x + fx - n.x) * .22; n.y += (q.y + fy - n.y) * .22; n.d = q.d; n.s = q.s; n.da = .5 + .5 * ((q.d / q.dmax) + 1) / 2;
-    n.a += (1 - n.a) * .08; const tg = (hover === n || selected === n) ? 1 : 0; n.g += (tg - n.g) * .12;
-  }
-  for (const b of belt) { const q = project(b.ring, b.th0 + b.ring.rot + dragTh, growOf(b.ring), b.k); b.x = q.x; b.y = q.y; b.d = q.d; b.s2 = q.s; b.da = .35 + .65 * ((q.d / q.dmax) + 1) / 2; }
-
-  /* brilho do sol */
-  const sunR = (rings[0] ? rings[0].R * .95 : 160) * p + 40;
-  const hg = ctx.createRadialGradient(cx, cy, 0, cx, cy, sunR); hg.addColorStop(0, `rgba(242,95,76,${T.dark ? .18 : .11})`); hg.addColorStop(1, 'rgba(242,95,76,0)');
-  ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(cx, cy, sunR, 0, 7); ctx.fill();
-
-  /* cometa em volta da palavra: cabeça brilhante e rastro que esmaece até sumir (sem linha fixa) */
-  /* a elipse é a menor que envolve o texto inteiro (cantos incluídos), por isso o cometa nunca passa por trás da palavra */
-  if (p > .2) { const hw = WRX - 14, hh = (WRY - 12) * .8, ay = hh + 14, ax = hw / Math.sqrt(1 - (hh / ay) * (hh / ay)) + 6, rot = reduce ? 1.2 : tt * (TAU / 14), L = 1.7, S = 26; ctx.save(); ctx.translate(cx, cy);
-    for (let i = 0; i < S; i++) { const k0 = i / S, k1 = (i + 1) / S; const a0 = rot - L * (1 - k0), a1 = rot - L * (1 - k1);
-      ctx.strokeStyle = `rgba(${T.c},${.6 * k1 * k1 * p})`; ctx.lineWidth = .4 + 1.4 * k1; ctx.lineCap = 'round';
-      ctx.beginPath(); ctx.moveTo(ax * Math.cos(a0), ay * Math.sin(a0)); ctx.lineTo(ax * Math.cos(a1), ay * Math.sin(a1)); ctx.stroke(); }
-    const hx = ax * Math.cos(rot), hy = ay * Math.sin(rot);
-    const gd = ctx.createRadialGradient(hx, hy, 0, hx, hy, 6); gd.addColorStop(0, T.dark ? `rgba(255,255,255,${.95 * p})` : `rgba(216,64,44,${p})`); gd.addColorStop(1, 'rgba(242,95,76,0)'); ctx.fillStyle = gd; ctx.beginPath(); ctx.arc(hx, hy, 6, 0, 7); ctx.fill(); ctx.restore(); }
-
-  /* as órbitas não são desenhadas: só os cometas percorrem o caminho delas */
-
-  /* nós antigos (transição de sistema) */
-  for (let i = outgoing.length - 1; i >= 0; i--) { const o = outgoing[i]; o.a -= .05; if (o.a <= 0) { outgoing.splice(i, 1); continue; }
-    o.x += (cx - o.x) * .12; o.y += (cy - o.y) * .12; ctx.fillStyle = `rgba(${T.c},${o.a * .6})`; ctx.beginPath(); ctx.arc(o.x, o.y, o.r * o.a, 0, 7); ctx.fill(); }
-
-  /* ligações: do sol a cada nó (a rede). Com um nó em foco, só as ligações dele ficam; as outras apagam. */
-  const focus = selected || hover; const dim = focus ? focus.g : 0;
-  nodes.forEach((n, i) => { const a = edge(n); const gr = Math.min(1, Math.max(0, progress * 1.6 - i * .045)); if (gr <= 0) return;
-    const keep = n === focus ? 1 : 1 - dim; if (keep <= .01) return;
-    const ex = a.x + (n.x - a.x) * ease(gr), ey = a.y + (n.y - a.y) * ease(gr);
-    ctx.strokeStyle = `rgba(${T.c},${(.10 * T.kl + n.g * .45) * n.a * n.da * keep})`; ctx.lineWidth = 1 + n.g; ctx.setLineDash(n.sub ? [3, 6] : []);
-    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(ex, ey); ctx.stroke(); ctx.setLineDash([]); });
-  /* rede: o nó em foco se conecta aos nós das outras órbitas (efeito da referência) */
-  if (focus && focus.g > .02) for (const o of nodes) { if (o.ring === focus.ring || o === focus) continue; ctx.strokeStyle = `rgba(242,95,76,${.22 * focus.g * o.da})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(focus.x, focus.y); ctx.lineTo(o.x, o.y); ctx.stroke(); }
-
-  /* pulsos viajando pelas ligações */
-  if (!reduce && p > .95 && nodes.length && Math.random() < .02) pulses.push({ n: nodes[Math.floor(Math.random() * nodes.length)], t: 0, v: .0022 + Math.random() * .002, out: Math.random() < .6 });
-  for (let i = pulses.length - 1; i >= 0; i--) { const q = pulses[i]; q.t += q.v; if (q.t > 1 || !nodes.includes(q.n)) { pulses.splice(i, 1); continue; }
-    const keep = q.n === focus ? 1 : 1 - dim; if (keep <= .02) continue;
-    const a = edge(q.n), k = q.out ? q.t : 1 - q.t; const x = a.x + (q.n.x - a.x) * k, y = a.y + (q.n.y - a.y) * k;
-    const g = ctx.createRadialGradient(x, y, 0, x, y, 7); g.addColorStop(0, T.dark ? `rgba(255,255,255,${.9 * keep})` : `rgba(216,64,44,${.95 * keep})`); g.addColorStop(.4, `rgba(${T.c},${.7 * keep})`); g.addColorStop(1, `rgba(${T.c},0)`); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, 7, 0, 7); ctx.fill(); }
-
-  /* cometas: correm pelas órbitas deixando rastro */
-  if (!reduce && p > .95 && comets.length < 2 && Math.random() < .004) { const rs = rings.filter(r => !r.belt); comets.push({ ring: rs[Math.floor(Math.random() * rs.length)], th: Math.random() * TAU, v: .5 + Math.random() * .3, life: 0, trail: [] }); }
-  for (let i = comets.length - 1; i >= 0; i--) { const c = comets[i]; c.th += c.v * dt * Math.max(spd, .25); c.life += dt; if (c.life > 9 || !rings.includes(c.ring)) { comets.splice(i, 1); continue; }
-    const q = project(c.ring, c.th + c.ring.rot + dragTh, growOf(c.ring)); c.trail.push({ x: q.x, y: q.y }); if (c.trail.length > 18) c.trail.shift();
-    const fade = Math.min(1, c.life / .6, (9 - c.life) / .8) * (.4 + .6 * ((q.d / q.dmax) + 1) / 2);
-    for (let j = 1; j < c.trail.length; j++) { const k = j / c.trail.length; ctx.strokeStyle = `rgba(${T.c},${.55 * k * fade})`; ctx.lineWidth = 2.2 * k; ctx.beginPath(); ctx.moveTo(c.trail[j - 1].x, c.trail[j - 1].y); ctx.lineTo(c.trail[j].x, c.trail[j].y); ctx.stroke(); }
-    const g = ctx.createRadialGradient(q.x, q.y, 0, q.x, q.y, 6); g.addColorStop(0, T.dark ? `rgba(255,255,255,${.95 * fade})` : `rgba(216,64,44,${fade})`); g.addColorStop(1, 'rgba(242,95,76,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(q.x, q.y, 6, 0, 7); ctx.fill(); }
-
-  /* corpos, do fundo para a frente */
-  const bodies = belt.map(b => ({ k: 'b', o: b, d: b.d })).concat(nodes.map(n => ({ k: 'n', o: n, d: n.d }))).sort((a, b) => a.d - b.d);
-  ctx.textBaseline = 'middle'; const labels = [];
-  for (const it of bodies) {
-    if (it.k === 'b') { const b = it.o; ctx.fillStyle = `rgba(${T.c},${.5 * b.da * p * T.k * .6})`; ctx.beginPath(); ctx.arc(b.x, b.y, b.s * b.s2 * p, 0, 7); ctx.fill(); continue; }
-    const n = it.o; const a = p * n.a * n.da; if (a <= .01) continue; const R = n.r * n.s * (1 + n.g * .3);
-    if (n.g > .02) { const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, R * 4); g.addColorStop(0, `rgba(242,95,76,${.35 * n.g})`); g.addColorStop(1, 'rgba(242,95,76,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(n.x, n.y, R * 4, 0, 7); ctx.fill(); }
-    ctx.beginPath(); ctx.arc(n.x, n.y, R, 0, 7);
-    if (n.tipo === 'area') { const g = ctx.createLinearGradient(n.x - R, n.y - R, n.x + R, n.y + R); g.addColorStop(0, '#ff8b6b'); g.addColorStop(.5, '#f25f4c'); g.addColorStop(1, '#d8402c'); ctx.globalAlpha = a; ctx.fillStyle = g; ctx.fill();
-      ctx.beginPath(); ctx.arc(n.x - R * .32, n.y - R * .32, R * .3, 0, 7); ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fill(); ctx.globalAlpha = 1; }
-    else if (n.tipo === 'principio') { ctx.fillStyle = T.bg; ctx.fill(); ctx.lineWidth = 1.5 + n.g; ctx.strokeStyle = `rgba(${T.c},${a})`; ctx.stroke(); ctx.beginPath(); ctx.arc(n.x, n.y, R * .42, 0, 7); ctx.fillStyle = `rgba(242,95,76,${a})`; ctx.fill(); }
-    else { ctx.fillStyle = `rgba(${T.c},${.85 * a})`; ctx.fill(); ctx.beginPath(); ctx.arc(n.x, n.y, R * .4, 0, 7); ctx.fillStyle = `rgba(255,255,255,${.6 * a})`; ctx.fill(); }
-    if (n.sub) { ctx.beginPath(); ctx.arc(n.x, n.y, R + 4.5, 0, 7); ctx.lineWidth = 1; ctx.strokeStyle = `rgba(${T.c},${.55 * a})`; ctx.setLineDash([2, 3]); ctx.stroke(); ctx.setLineDash([]); }
-    /* rótulo: posição calculada agora, desenho depois (com anticolisão) */
-    const inner = n.ring.idx < rings.filter(r => !r.belt).length - 1;
-    const fs = (compact ? 11 : 13) - (inner ? 1 : 0);
-    ctx.font = `${n.g > .5 ? 500 : 400} ${fs}px Sora, -apple-system, "Segoe UI", sans-serif`;
-    const txt = n.label + (n.sub ? '  ›' : ''), tw = ctx.measureText(txt).width;
-    const dx = n.x - cx, dy = n.y - cy, L = Math.hypot(dx, dy) || 1; let tx, ty, al;
-    let mode = n.ring.labelMode === 'auto' ? 'out' : (n.ring.labelMode === 'v' || inner) ? 'v' : 'out';
-    if (mode === 'out') { const lx = n.x + dx / L * (R + 9), ly = n.y + dy / L * (R + 9); al = Math.abs(dx / L) < .28 ? 'center' : dx > 0 ? 'left' : 'right'; tx = lx; ty = al === 'center' ? (dy > 0 ? ly + 7 : ly - 7) : ly;
-      if (n.ring.labelMode === 'auto' && ((al === 'left' && tx + tw > W - 8) || (al === 'right' && tx - tw < 8))) mode = 'v'; }
-    if (mode === 'v') { al = 'center'; tx = n.x; ty = n.d >= 0 ? n.y + R + 12 : n.y - R - 12; }
-    const x0 = al === 'center' ? tx - tw / 2 : al === 'left' ? tx : tx - tw;
-    labels.push({ n, txt, tx, ty, al, fs, x0, x1: x0 + tw, y0: ty - fs * .65, y1: ty + fs * .65, a, inner, pri: n.g + n.da });
-  }
-  /* anticolisão: entre dois rótulos que se cruzam, o de menor prioridade (mais ao fundo) some */
-  labels.sort((a, b) => b.pri - a.pri);
-  for (let i = 0; i < labels.length; i++) { const A = labels[i]; if (A.hidden) continue; for (let j = i + 1; j < labels.length; j++) { const B = labels[j]; if (B.hidden) continue;
-    if (A.x0 < B.x1 + 4 && B.x0 < A.x1 + 4 && A.y0 < B.y1 + 2 && B.y0 < A.y1 + 2) B.hidden = true; }
-    for (const o of nodes) { if (o === A.n || o.g > .5) continue; const rr = o.r * o.s + 3; if (o.x + rr > A.x0 && o.x - rr < A.x1 && o.y + rr > A.y0 && o.y - rr < A.y1) { A.hidden = true; break; } } }
-  for (const l of labels) { const n = l.n; n.lv = n.lv === undefined ? 1 : n.lv; n.lv += ((l.hidden ? 0 : 1) - n.lv) * .15; if (n.lv < .03) continue;
-    ctx.font = `${n.g > .5 ? 500 : 400} ${l.fs}px Sora, -apple-system, "Segoe UI", sans-serif`; ctx.textAlign = l.al;
-    ctx.fillStyle = n.g > .5 ? (T.dark ? '#fff' : '#d8402c') : `rgba(${T.ink},${(l.inner ? (T.dark ? .78 : .9) : .95) * Math.max(l.a, T.dark ? .55 : .8) * n.lv})`;
-    ctx.fillText(l.txt, l.tx, l.ty); }
-  requestAnimationFrame(draw);
-}
-requestAnimationFrame(draw);
-
-/* ============================================================
-   NAVEGAÇÃO — hash: '' hub · 'intro' · 'avise' · 'n/<nó>' · 's/<sistema>'
-   ============================================================ */
-function openNet() { const t = performance.now(); (function grow() { const k = Math.min(1, (performance.now() - t) / 1800); progress = k; if (k < 1) requestAnimationFrame(grow); })(); }
-function show(pid, from) {
-  const first = !shownOnce; shownOnce = true; sys = pid; selected = null; hover = null; pulses = []; comets = []; const pg = P[pid];
-  buildSystem(pid, !first, from); progress = 0;
-  if (pid === 'hub') { mark.classList.remove('hide'); mark.classList.add('small'); document.body.classList.remove('corner'); ctitle.classList.remove('on'); crumb.classList.remove('on'); $('back').classList.remove('on'); hero.classList.toggle('on', started); legend.classList.toggle('on', started && !mobile); }
-  else { mark.classList.add('small', 'hide'); document.body.classList.add('corner'); $('ck').textContent = (P[pg.parent] && P[pg.parent].title !== 'iAtmosfera' ? P[pg.parent].title + ' · ' : '') + (pg.aneis.length === 1 ? pg.aneis[0].nome : CONTEUDO.ui.sistema); $('ch').textContent = pg.title; crumbcur.textContent = pg.title; ctitle.classList.add('on'); crumb.classList.add('on'); $('back').classList.add('on'); hero.classList.remove('on'); legend.classList.remove('on'); }
-  $('lg-a').textContent = CONTEUDO.legenda.areas; $('lg-p').textContent = CONTEUDO.legenda.principios;
-  setTimeout(measureCenter, first ? 1150 : 900); if (reduce) { progress = 1; setTimeout(measureCenter, 30); } else setTimeout(openNet, first ? 500 : 350);
-}
-function nav(h) { const cur = location.hash.slice(1); if (h === '') { if (location.hash) history.pushState(null, '', location.pathname + location.search); route(); } else if (cur === h) route(); else location.hash = h; }
-const introHash = () => sys === 'hub' ? 'intro' : 's/' + sys + '/intro';
-const closeTo = () => nav(sys === 'hub' ? '' : 's/' + sys); /* fechar o quadro volta à rede que estava na tela */
-function route() {
-  let h; try { h = decodeURIComponent(location.hash.slice(1)); } catch (e) { h = ''; }
-  const home = () => { if (!shownOnce || sys !== 'hub') show('hub'); if (boardOpen) closeBoard(true); };
-  const fallback = () => { home(); if (location.hash) history.replaceState(null, '', location.pathname + location.search); }; /* link quebrado ou desconhecido: cai no início */
-  if (!h) { home(); return; }
-  if (h === 'intro') { if (!shownOnce || sys !== 'hub') show('hub'); openBoard('intro'); return; }
-  if (h === 'avise') { if (!shownOnce) show('hub'); openBoard('avise'); return; }
-  const m = h.match(/^s\/([^/]+)(\/intro)?$/);
-  if (m) { const id = m[1]; if (!P[id]) return fallback(); if (boardOpen && !m[2]) closeBoard(true); if (!shownOnce || sys !== id) show(id, selected ? { x: selected.x, y: selected.y } : null); if (m[2]) openBoard('intro'); return; }
-  if (h.startsWith('n/')) { const id = h.slice(2); const c = N[id]; if (!c) return fallback(); if (!shownOnce || sys !== c.sys) show(c.sys); selected = nodes.find(n => n.id === id) || null; openBoard('node', c); return; }
-  fallback();
-}
-addEventListener('hashchange', route);
-function activate(n) { if (!n) return; selected = n; nav(n.sub && N[n.id].abrir === 'sistema' ? 's/' + n.id : 'n/' + n.id); }
-$('home').onclick = () => nav('');
-mark.addEventListener('click', () => { if (!started) begin(); else nav(introHash()); });
-mark.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); mark.click(); } });
-$('ch').onclick = () => nav(introHash()); $('ch').onkeydown = e => { if (e.key === 'Enter') nav(introHash()); };
-$('notify').onclick = () => nav('avise'); $('bcta').onclick = () => nav('avise');
-$('bclose').onclick = closeTo;
-$('back').onclick = () => nav(P[sys].parent && P[sys].parent !== 'hub' ? 's/' + P[sys].parent : '');
-addEventListener('keydown', e => { if (e.key === 'Escape') { if (boardOpen) closeTo(); else if (sys !== 'hub') nav(P[sys].parent === 'hub' ? '' : 's/' + P[sys].parent); } });
-function begin() { if (started) return; started = true; s2.inert = true; $('talk').href = 'mailto:' + CONTEUDO.email; hint.querySelector('.d').textContent = matchMedia('(hover:hover) and (pointer:fine)').matches ? CONTEUDO.dica.mouse : CONTEUDO.dica.toque; try { route(); } catch (e) { console.error(e); if (!shownOnce) show('hub'); } topbar.classList.add('on'); $('themebtn').classList.add('on'); hero.classList.add('on'); legend.classList.toggle('on', !mobile); hint.classList.add('on'); startPhrases(); }
-
-/* ============================================================
-   INTERAÇÃO NO CANVAS — toque = abrir · arrastar = girar
-   ============================================================ */
-let pdown = null, pnode = null, moved = false;
-cv.addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; if (progress < .6) return;
-  if (pdown) { const dx = e.clientX - pdown.x, dy = e.clientY - pdown.y; if (!moved && Math.hypot(dx, dy) > 6) { moved = true; dragging = true; cv.classList.add('grab'); hint.classList.add('off'); }
-    if (moved) { dragTh += (e.clientX - pdown.lx) * .0045 * (compact ? 1.4 : 1); dragTiltT = Math.max(-.28, Math.min(.28, dragTiltT + (e.clientY - pdown.ly) * .0015)); pdown.lx = e.clientX; pdown.ly = e.clientY; } return; }
-  hover = hit(e.clientX, e.clientY); spdT = hover ? .12 : 1; cv.classList.toggle('hand', !!hover); });
-cv.addEventListener('pointerdown', e => { if (progress < .6) return; cv.setPointerCapture(e.pointerId); pdown = { x: e.clientX, y: e.clientY, lx: e.clientX, ly: e.clientY }; pnode = hit(e.clientX, e.clientY); moved = false; });
-cv.addEventListener('pointerup', e => { if (!pdown) return; const wasDrag = moved; pdown = null; dragging = false; cv.classList.remove('grab');
-  if (!wasDrag) { if (pnode) activate(pnode); else { selected = null; } } pnode = null; });
-cv.addEventListener('pointercancel', () => { pdown = null; dragging = false; cv.classList.remove('grab'); });
-cv.addEventListener('pointerleave', () => { hover = null; spdT = 1; mx = my = -1e4; });
-
-/* ============================================================
-   O QUADRO — conteúdo, máquina de escrever, mídia, formulário
-   ============================================================ */
-let typer = null, current = null, focusT = 0, settleT = 0, anim = null, kbd = false; const panel = $('panel');
-addEventListener('keydown', () => { kbd = true; }, true); addEventListener('pointerdown', () => { kbd = false; }, true);
-function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
-const brand = s => esc(s).replace(/iAtmosfera/g, '<span class="i">i</span>Atmosfera'); /* grafia da marca mesmo dentro dos textos */
-function paragraphs(txt, i) { const s = txt.slice(0, i); return '<p>' + brand(s).replace(/\n\n/g, '</p><p>') + '<span class="cur"></span></p>'; }
-function pathHtml(kind, c) {
-  const dot = kind === 'node' ? `<span class="dot${c.tipo === 'area' ? '' : ' p'}"></span>` : '';
-  const sysTitle = P[sys].title === 'iAtmosfera' ? '<span class="bm"><span class="i">i</span>Atmosfera</span>' : esc(P[sys].title);
-  return dot + `<span>${sysTitle}</span>` + (kind === 'node' ? `<span class="sep mid">›</span><span class="mid">${esc(c.ringNome)}</span><span class="sep">›</span><span style="color:var(--ink)">${esc(c.label)}</span>` : kind === 'avise' ? '<span class="sep">›</span><span style="color:var(--ink)">' + esc(CONTEUDO.ui.aviseCaminho) + '</span>' : '');
-}
-function openBoard(kind, c) {
-  if (kind === 'intro') c = P[sys].intro || CONTEUDO.intro; if (kind === 'avise') c = CONTEUDO.avise;
-  current = { kind, c }; boardOpen = true; boardT = performance.now(); spdT = .25;
-  /* o quadro se abre a partir do ponto de origem: o nó clicado, a palavra (intro) ou o botão (avise-me) */
-  let ox = cx, oy = cy; if (kind === 'node' && selected && selected.id === c.id) { ox = selected.x; oy = selected.y; }
-  else if (kind === 'avise') { const b = $('notify').getBoundingClientRect(); if (b.width) { ox = b.left + b.width / 2; oy = b.top + b.height / 2; } }
-  const fresh = !s2.classList.contains('open');
-  s2.classList.add('open'); s2.setAttribute('aria-hidden', 'false'); s2.inert = false; s1.inert = true; panel.scrollTop = 0;
-  if (fresh) { clearTimeout(settleT); panel.classList.remove('in', 'settled');
-    requestAnimationFrame(() => { const sr = s2.getBoundingClientRect(); panel.style.setProperty('--px', (ox - sr.left - panel.offsetLeft) + 'px'); panel.style.setProperty('--py', (oy - sr.top - panel.offsetTop) + 'px'); requestAnimationFrame(() => panel.classList.add('in')); });
-    settleT = setTimeout(() => panel.classList.add('settled'), 650); } hint.classList.add('off'); document.body.classList.add('board'); $('notify').classList.add('ghost');
-  $('bpath').innerHTML = pathHtml(kind, c);
-  $('bkicker').textContent = kind === 'node' ? c.ringNome : (c.kicker || '');
-  const st = $('bstatus'); st.textContent = c.status || ''; st.style.display = c.status ? '' : 'none'; st.className = 'st' + (kind === 'avise' ? ' live' : '');
-  $('btitle').innerHTML = kind === 'intro' ? c.titulo : brand(c.titulo);
-  renderMedia(c.media);
-  const ringNodes = kind === 'node' ? P[c.sys].aneis.find(r => r.id === c.ringId).nos : null;
-  $('bprev').style.display = $('bnext').style.display = ringNodes && ringNodes.length > 1 ? '' : 'none';
-  $('bnote').textContent = ringNodes ? CONTEUDO.ui.contador.replace('{i}', ringNodes.findIndex(x => x.id === c.id) + 1).replace('{n}', ringNodes.length).replace('{anel}', c.ringNome) : '';
-  $('bprev').onclick = () => { const i = ringNodes.findIndex(x => x.id === c.id); nav('n/' + ringNodes[(i - 1 + ringNodes.length) % ringNodes.length].id); };
-  $('bnext').onclick = () => { const i = ringNodes.findIndex(x => x.id === c.id); nav('n/' + ringNodes[(i + 1) % ringNodes.length].id); };
-  $('bcta').style.display = kind === 'avise' ? 'none' : '';
-  document.querySelector('.bfoot').style.display = kind === 'avise' ? 'none' : '';
-  chipsEl.innerHTML = ''; extra.innerHTML = ''; extra.classList.remove('on'); clearTimeout(typer);
-  const txt = c.texto || ''; let i = 0;
-  say.style.minHeight = ''; say.innerHTML = paragraphs(txt, txt.length); say.style.minHeight = say.offsetHeight + 'px'; say.innerHTML = paragraphs('', 0);
-  /* atalhos e formulário aparecem já; a máquina de escrever só revela o texto (clique no texto pula) */
-  if (kind === 'avise') buildForm();
-  const chipsList = (c.chips || []).slice(); if (kind === 'node' && c.sub && !chipsList.some(([, to]) => to === 'sistema:' + c.id)) chipsList.push([CONTEUDO.ui.explorar, 'sistema:' + c.id]);
-  chipsList.forEach(([l, to]) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + (to === 'avise' ? ' cta' : ' go'); b.textContent = l; b.onclick = () => chipTo(to); chipsEl.appendChild(b); });
-  requestAnimationFrame(() => extra.classList.add('on'));
-  const step = Math.max(1, Math.ceil(txt.length / 110)); /* texto longo digita mais rápido: no máximo ~1,5 s */
-  const finish = () => { clearTimeout(typer); i = txt.length; say.innerHTML = paragraphs(txt, txt.length).replace('<span class="cur"></span>', ''); say.onclick = null; };
-  say.onclick = finish;
-  (function type() {
-    if (i >= txt.length) return finish();
-    if (reduce) i = txt.length; else i += step + (Math.random() < .2 ? 1 : 0);
-    if (i < txt.length) { say.innerHTML = paragraphs(txt, i); typer = setTimeout(type, 13); } else finish();
-  })();
-  $('say-sr').textContent = String(c.titulo).replace(/<[^>]+>/g, '') + ' ' + txt.replace(/\n\n/g, ' ');
-  clearTimeout(focusT); focusT = setTimeout(() => $('bclose').focus({ preventScroll: true }), 900);
-}
-function closeBoard(silent) { if (!boardOpen) return; boardOpen = false; spdT = 1; selected = null; clearTimeout(settleT); panel.classList.remove('in', 'settled'); s2.classList.remove('open'); document.body.classList.remove('board'); $('notify').classList.remove('ghost'); s2.setAttribute('aria-hidden', 'true'); s2.inert = true; s1.inert = false; clearTimeout(typer); clearTimeout(focusT); killMedia(); mediaEl.querySelectorAll('video').forEach(v => v.pause()); if (kbd) (sys === 'hub' ? mark : $('ch')).focus({ preventScroll: true }); else if (document.activeElement && s2.contains(document.activeElement)) document.activeElement.blur(); if (!silent) closeTo(); }
-function killMedia() { if (anim) { try { anim.destroy(); } catch (e) {} anim = null; } }
-function chipTo(to) {
-  if (to === 'mail') location.href = 'mailto:' + CONTEUDO.email;
-  else if (to === 'avise') nav('avise');
-  else if (to === 'intro') nav(introHash());
-  else if (to === 'intro-hub') nav('');
-  else if (to.startsWith('sistema:') && P[to.slice(8)]) nav('s/' + to.slice(8));
-  else if (N[to]) nav('n/' + to);
-}
-/* mídia do quadro: animação própria do nó ou a padrão */
-function renderMedia(m) {
-  killMedia(); mediaEl.innerHTML = '';
-  const fallback = () => { mediaEl.innerHTML = ''; mediaEl.appendChild($('tpl-orbitz').content.firstElementChild.cloneNode(true)); const t = document.createElement('span'); t.className = 'tag'; t.textContent = CONTEUDO.ui.midiaPendente; mediaEl.appendChild(t); };
-  if (!m || !m.src) return fallback();
-  if (m.type === 'image' || m.type === 'svg') { const im = new Image(); im.src = m.src; im.alt = m.alt || ''; im.onerror = fallback; mediaEl.appendChild(im); }
-  else if (m.type === 'video') { const v = document.createElement('video'); v.src = m.src; if (m.poster) v.poster = m.poster; v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('muted', ''); v.onerror = fallback; mediaEl.appendChild(v); if (!reduce) v.play().catch(() => {}); }
-  else if (m.type === 'lottie') { const box = document.createElement('div'); box.className = 'lottie'; mediaEl.appendChild(box);
-    loadLottie().then(l => { if (!box.isConnected) return; anim = l.loadAnimation({ container: box, renderer: 'svg', loop: true, autoplay: !reduce, path: m.src }); }).catch(fallback); }
-  else fallback();
-}
-function loadLottie() { if (window.lottie) return Promise.resolve(window.lottie); return new Promise((res, rej) => { const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js'; s.onload = () => res(window.lottie); s.onerror = rej; document.head.appendChild(s); }); }
-/* formulário "avise-me": tenta o PHP; sem ele, abre o e-mail do visitante */
-function buildForm() {
-  const f0 = CONTEUDO.form, ic = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>';
-  extra.innerHTML = `<form class="form" id="avise" novalidate>
-    <div class="row">
-      <div class="field"><label for="f-email">${esc(f0.email)}</label><input id="f-email" name="email" type="email" required autocomplete="email" placeholder="${esc(f0.emailPlaceholder)}"></div>
-      <div class="field"><label for="f-nome">${esc(f0.nome)}</label><input id="f-nome" name="nome" type="text" autocomplete="name" placeholder="${esc(f0.nomePlaceholder)}"></div>
-    </div>
-    <div class="field"><label for="f-erp">${esc(f0.erp)}</label><select id="f-erp" name="erp"><option value="">${esc(f0.erpVazio)}</option>${f0.erps.map(e => `<option>${esc(e)}</option>`).join('')}</select></div>
-    <div class="hp" aria-hidden="true"><label>Site<input name="site" tabindex="-1" autocomplete="off"></label></div>
-    <div class="send"><button class="btn" type="submit">${ic}<span>${esc(f0.enviar)}</span></button><span class="msg" id="f-msg"></span></div>
-    <div class="pv">${esc(f0.privacidade)}</div>
-  </form>`;
-  const f = $('avise'), msg = $('f-msg'), btn = f.querySelector('button');
-  f.onsubmit = async e => { e.preventDefault(); const email = $('f-email').value.trim(); if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.className = 'msg err'; msg.textContent = f0.emailInvalido; $('f-email').setAttribute('aria-invalid', 'true'); $('f-email').focus(); return; }
-    $('f-email').removeAttribute('aria-invalid');
-    btn.disabled = true; msg.className = 'msg'; msg.textContent = f0.enviando;
-    const dados = { email, nome: $('f-nome').value.trim(), erp: $('f-erp').value, site: f.site.value };
-    try { const r = await fetch(CONTEUDO.endpointAvise, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados) }); const j = await r.json(); if (!r.ok || !j.ok) throw new Error(j.erro || 'erro');
-      msg.className = 'msg ok'; msg.textContent = f0.ok; btn.querySelector('span').textContent = f0.registrado; }
-    catch (err) { btn.disabled = false; msg.className = 'msg'; msg.textContent = f0.fallback;
-      const body = `${f0.corpo}\n\nE-mail: ${email}${dados.nome ? '\nNome: ' + dados.nome : ''}${dados.erp ? '\nSistema: ' + dados.erp : ''}`;
-      location.href = `mailto:${CONTEUDO.email}?subject=${encodeURIComponent(f0.assunto)}&body=${encodeURIComponent(body)}`; } };
-}
-
-/* frases do topo — rotação suave */
-function startPhrases() {
-  const box = $('phrase'); box.innerHTML = ''; const fr = CONTEUDO.frases.length ? CONTEUDO.frases : ['Em breve.'];
-  const spans = fr.map(h => { const s = document.createElement('span'); s.innerHTML = h; box.appendChild(s); return s; });
-  $('kick').textContent = CONTEUDO.kicker; let i = 0; spans[0].classList.add('on'); if (reduce || spans.length < 2) return;
-  setInterval(() => { spans[i].classList.remove('on'); i = (i + 1) % spans.length; setTimeout(() => spans[i].classList.add('on'), 500); }, 5500); /* a frase antiga some antes de a nova entrar */
-}
-
-/* partida: tudo declarado acima; com movimento reduzido a rede aparece de imediato */
-resize();
-if (reduce) begin(); else setTimeout(begin, 1800);
-
-/* gancho de depuração / testes automatizados */
-window.__iat = {
-  debug: () => ({ W, H, cx, cy, compact, mobile, sys, boardOpen, progress: +progress.toFixed(2), rings: rings.filter(r => !r.belt).map(r => ({ id: r.id, R: Math.round(r.R), ry: Math.round(r.R * Math.sin(r.phi)) })), nodes: nodes.map(n => ({ id: n.id, x: Math.round(n.x), y: Math.round(n.y), d: Math.round(n.d) })), wr: [Math.round(WRX), Math.round(WRY)] }),
-  open: id => { const n = nodes.find(x => x.id === id); if (n) activate(n); else if (N[id]) nav('n/' + id); },
-  enter: id => { if (P[id]) nav('s/' + id); },
-  openIntro: () => nav(introHash()), openAvise: () => nav('avise'), close: closeTo,
-  firstNodeId: which => { const rs = rings.filter(r => !r.belt); const r = which === 'outer' ? rs[rs.length - 1] : rs[0]; const n = nodes.find(x => x.ring === r); return n ? n.id : null; },
-  nodeScreenPos: id => { const n = nodes.find(x => x.id === id); return n ? { x: n.x, y: n.y } : null; },
-};
+/* ---------- contato (janela) ---------- */
+(() => {
+  const dlg = $('contato'), form = $('contatoForm'), status = $('contatoStatus');
+  let origem = null, ocupado = false;
+  const abrir = () => { origem = document.activeElement; status.textContent = ''; status.classList.remove('err'); dlg.showModal(); setTimeout(() => form.nome.focus(), 60); };
+  const fechar = () => { dlg.close(); };
+  $('abrirContato').addEventListener('click', abrir);
+  $('fecharContato').addEventListener('click', fechar);
+  dlg.addEventListener('click', ev => { if (ev.target === dlg) fechar(); }); // clique no fundo fecha
+  dlg.addEventListener('close', () => { if (origem && origem.focus) origem.focus({ preventScroll: true }); });
+  form.addEventListener('submit', async ev => {
+    ev.preventDefault();
+    if (ocupado) return;
+    const nome = form.nome.value.trim(), email = form.email.value.trim().toLowerCase(), msg = form.mensagem.value.trim();
+    status.classList.remove('err');
+    if (!nome) { status.textContent = 'Diga seu nome, por favor.'; status.classList.add('err'); form.nome.focus(); return; }
+    if (!emailValido(email)) { status.textContent = 'Confira o e-mail.'; status.classList.add('err'); form.email.focus(); return; }
+    if (msg.length < 5) { status.textContent = 'Escreva uma mensagem.'; status.classList.add('err'); form.mensagem.focus(); return; }
+    ocupado = true;
+    const btn = form.querySelector('button[type=submit]'); btn.disabled = true; status.textContent = 'Enviando…';
+    try {
+      const res = await enviar(CONFIG.endpointContato, { nome, email, mensagem: msg, site: form.site.value });
+      if (res.ok) { status.textContent = 'Mensagem enviada. Obrigado!'; form.reset(); setTimeout(fechar, 1600); }
+      else { status.textContent = 'Não deu certo agora. Tente de novo ou use o e-mail abaixo.'; status.classList.add('err'); }
+    } catch (e) {
+      location.href = 'mailto:' + CONFIG.emailContato + '?subject=' + encodeURIComponent('Contato — ' + nome) + '&body=' + encodeURIComponent(msg + '\n\n' + nome + ' <' + email + '>');
+      status.textContent = 'Abrimos o seu e-mail com a mensagem pronta.';
+    } finally { ocupado = false; btn.disabled = false; }
+  });
+})();
 </script>
 </body>
 </html>

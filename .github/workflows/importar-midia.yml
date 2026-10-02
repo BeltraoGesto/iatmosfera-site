@@ -1,7 +1,9 @@
 # Importa arquivos de mídia (imagens/vídeos gerados) para dentro do repositório.
 # Como usar: liste em midia/importar.txt uma linha por arquivo no formato
-#   caminho/de/destino.ext https://url-de-origem
+#   caminho/de/destino.ext https://url-de-origem [video]
 # e faça push. O job baixa cada URL e faz commit dos arquivos no mesmo branch.
+# Com a opção "video", o MP4 é recodificado para a web (H.264, sem áudio,
+# faststart, até 1920 px) e uma folha de quadros vai para midia/quadros/.
 name: Importar mídia
 
 on:
@@ -23,16 +25,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Baixar arquivos listados
+      - name: Baixar (e otimizar) arquivos listados
         run: |
           set -eu
-          while IFS=' ' read -r destino url _; do
+          mkdir -p midia/quadros
+          while IFS=' ' read -r destino url opcao _; do
             [ -z "${destino:-}" ] && continue
             case "$destino" in '#'*) continue;; esac
             [ -z "${url:-}" ] && { echo "URL ausente para $destino"; exit 1; }
             mkdir -p "$(dirname "$destino")"
             echo "-> $destino"
-            curl -fsSL --retry 3 --retry-delay 5 -o "$destino" "$url"
+            if [ "${opcao:-}" = "video" ]; then
+              curl -fsSL --retry 3 --retry-delay 5 -o /tmp/origem.mp4 "$url"
+              ffmpeg -hide_banner -loglevel error -y -i /tmp/origem.mp4 -an \
+                -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -movflags +faststart \
+                -vf "scale=w='if(gt(iw,ih),min(1920,iw),-2)':h='if(gt(iw,ih),-2,min(1920,ih))'" \
+                "$destino"
+              base="$(basename "${destino%.*}")"
+              ffmpeg -hide_banner -loglevel error -y -i "$destino" \
+                -vf "fps=1,scale=480:-2,tile=5x2" -frames:v 1 -q:v 4 "midia/quadros/${base}.jpg"
+              echo "   original: $(stat -c %s /tmp/origem.mp4) bytes"
+            else
+              curl -fsSL --retry 3 --retry-delay 5 -o "$destino" "$url"
+            fi
             ls -l "$destino"
           done < midia/importar.txt
 
