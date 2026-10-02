@@ -1,3 +1,1 @@
-# clipe A (16:9, 15 s, Kling 4K, câmera travada) — destino  url  opções
-referencias/A-16x9-ultimo.png https://d8j0ntlcm91z4.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/hf_20261002_193654_5964d312-5379-406d-a6c7-99a8af146829.mp4 quadro=ultimo
-referencias/A-16x9.mp4 https://d8j0ntlcm91z4.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/hf_20261002_193654_5964d312-5379-406d-a6c7-99a8af146829.mp4 video
+# análise de áudio do clipe A (nada para baixar aqui)
