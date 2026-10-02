@@ -45,9 +45,15 @@ ffmpeg -nostdin -hide_banner -loglevel error -y -i /tmp/A.mp4 -vn -ss "$A_INI" -
   -af "acompressor=threshold=-30dB:ratio=4:attack=20:release=400:makeup=2,equalizer=f=800:width_type=o:width=1.6:g=-5,bass=g=4:f=110,treble=g=2:f=3000" \
   -ar 48000 -ac 2 /tmp/seg.wav
 # 2) três cópias do trecho emendadas com fusões de 1,5 s (entradas separadas: acrossfade precisa disso),
-#    cortadas no comprimento do loop, nivelamento suave e fades curtos nas pontas
+#    ganho fixo com limitador (sem normalizador dinâmico, que fazia o volume subir e descer)
 ffmpeg -nostdin -hide_banner -loglevel error -y -i /tmp/seg.wav -i /tmp/seg.wav -i /tmp/seg.wav -filter_complex \
-  "[0:a][1:a]acrossfade=d=1.5:c1=tri:c2=tri[x];[x][2:a]acrossfade=d=1.5:c1=tri:c2=tri[y];[y]atrim=0:${L},asetpts=PTS-STARTPTS,dynaudnorm=f=500:g=21:p=0.8:m=4,volume=-3dB,afade=t=in:d=0.3,afade=t=out:st=$(awk -v l="$L" 'BEGIN{printf "%.3f", l-0.3}'):d=0.3[aout]" \
+  "[0:a][1:a]acrossfade=d=1.5:c1=tri:c2=tri[x];[x][2:a]acrossfade=d=1.5:c1=tri:c2=tri[y];[y]volume=4dB,alimiter=limit=0.9:level=false[aout]" \
+  -map "[aout]" -ar 48000 /tmp/y.wav
+# 3) fecha o loop do áudio: trecho [0,5 → L+0,5] com os últimos 0,5 s fundidos no começo [0 → 0,5],
+#    assim a última amostra emenda exatamente na primeira (sem fade, sem "buraco" no reinício)
+LA="$(awk -v l="$L" 'BEGIN{printf "%.3f", l+0.5}')"
+ffmpeg -nostdin -hide_banner -loglevel error -y -i /tmp/y.wav -i /tmp/y.wav -filter_complex \
+  "[0:a]atrim=0.5:${LA},asetpts=PTS-STARTPTS[m];[1:a]atrim=0:0.5,asetpts=PTS-STARTPTS[h];[m][h]acrossfade=d=0.5:c1=tri:c2=tri[aout]" \
   -map "[aout]" -ar 48000 /tmp/aud.wav
 echo "áudio do loop: $(ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/aud.wav)s"
 
