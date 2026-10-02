@@ -1,0 +1,14 @@
+total s00 -33.6 dB	agudo s00 -51.9 dB	medio s00 -37.7 dB	grave s00 -38.8 dB
+total s01 -33.8 dB	agudo s01 -52.1 dB	medio s01 -37.5 dB	grave s01 -39.6 dB
+total s02 -33.3 dB	agudo s02 -50.5 dB	medio s02 -36.6 dB	grave s02 -39.5 dB
+total s03 -32.9 dB	agudo s03 -50.1 dB	medio s03 -36.0 dB	grave s03 -39.9 dB
+total s04 -32.7 dB	agudo s04 -49.8 dB	medio s04 -36.0 dB	grave s04 -39.4 dB
+total s05 -31.5 dB	agudo s05 -47.3 dB	medio s05 -34.9 dB	grave s05 -38.7 dB
+total s06 -28.3 dB	agudo s06 -44.2 dB	medio s06 -31.7 dB	grave s06 -35.9 dB
+total s07 -26.3 dB	agudo s07 -41.3 dB	medio s07 -30.4 dB	grave s07 -33.0 dB
+total s08 -29.9 dB	agudo s08 -44.9 dB	medio s08 -34.4 dB	grave s08 -35.5 dB
+total s09 -36.2 dB	agudo s09 -55.4 dB	medio s09 -40.9 dB	grave s09 -40.7 dB
+total s10 -28.7 dB	agudo s10 -53.3 dB	medio s10 -29.4 dB	grave s10 -40.9 dB
+total s11 -23.6 dB	agudo s11 -50.1 dB	medio s11 -23.9 dB	grave s11 -41.3 dB
+total s12 -28.9 dB	agudo s12 -53.7 dB	medio s12 -29.4 dB	grave s12 -42.2 dB
+total s13 -30.4 dB	agudo s13 -54.4 dB	medio s13 -31.0 dB	grave s13 -42.9 dB
