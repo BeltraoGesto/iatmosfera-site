@@ -1,2 +1,1 @@
-# destino  url  opções
-assets/video/lancamento-16x9.mp4 https://d8j0ntlcm91z4.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/hf_20261002_190915_0090f2cf-9ca6-4494-9eae-14481d38ed2b.mp4 loop=1.5
+# nada para baixar: a montagem está em midia/receita.sh
