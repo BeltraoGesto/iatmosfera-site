@@ -1,6 +1,7 @@
 # Importa arquivos de mídia (imagens/vídeos gerados) para dentro do repositório.
 # Como usar: liste em midia/importar.txt uma linha por arquivo no formato
-#   caminho/de/destino.ext https://url-de-origem [video|loop=1.5|bruto]
+#   caminho/de/destino.ext https://url-de-origem [video|loop=1.5|quadro=ultimo|bruto]
+# Se existir midia/receita.sh, ele roda depois dos downloads (montagens com ffmpeg).
 # e faça push. O job baixa cada URL e faz commit dos arquivos no mesmo branch.
 # Com a opção "video", o MP4 é recodificado para a web (H.264, sem áudio,
 # faststart, até 1920 px) e uma folha de quadros vai para midia/quadros/.
@@ -10,6 +11,7 @@ on:
   push:
     paths:
       - midia/importar.txt
+      - midia/receita.sh
   workflow_dispatch:
 
 permissions:
@@ -27,7 +29,7 @@ jobs:
 
       - name: Instalar ffmpeg (só se houver vídeo para otimizar)
         run: |
-          if grep -Eq '^[^#].*[[:space:]](video|loop=)' midia/importar.txt; then
+          if grep -Eq '^[^#].*[[:space:]](video|loop=|quadro=)' midia/importar.txt || [ -f midia/receita.sh ]; then
             sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null
             ffmpeg -version | head -1
           fi
@@ -72,12 +74,26 @@ jobs:
                 ffmpeg -nostdin -hide_banner -i "$destino" -vf "fps=5,tblend=all_mode=difference,signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=/tmp/mov.txt" -f null - 2>/dev/null || true
                 awk -F= '/YAVG/{s+=$2;n++} END{if(n) printf "   YAVG=%.3f (n=%d)\n", s/n, n}' /tmp/mov.txt || true
                 ;;
+              *,quadro=*)
+                # extrai um quadro do vídeo (primeiro ou último) como PNG, sem guardar o vídeo
+                qual="$(printf '%s' ",${opcoes}," | sed -n 's/.*,quadro=\([a-z]*\),.*/\1/p')"
+                curl -fsSL --retry 3 --retry-delay 5 -o /tmp/origem.mp4 "$url"
+                if [ "$qual" = "ultimo" ]; then
+                  ffmpeg -nostdin -hide_banner -loglevel error -y -sseof -0.05 -i /tmp/origem.mp4 -frames:v 1 -update 1 "$destino"
+                else
+                  ffmpeg -nostdin -hide_banner -loglevel error -y -i /tmp/origem.mp4 -frames:v 1 -update 1 "$destino"
+                fi
+                ;;
               *,bruto,*|*)
                 curl -fsSL --retry 3 --retry-delay 5 -o "$destino" "$url"
                 ;;
             esac
             ls -l "$destino"
           done < midia/importar.txt
+
+      - name: Executar receita (montagem com ffmpeg), se houver
+        if: hashFiles('midia/receita.sh') != ''
+        run: bash midia/receita.sh
 
       - name: Commit dos arquivos
         run: |
