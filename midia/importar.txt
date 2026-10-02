@@ -1,3 +1,2 @@
 # destino  url  [video]
-assets/video/lancamento-16x9.mp4 https://d8j0ntlcm91z4.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/hf_20261002_184612_c3ac879d-b694-466a-87b5-96319dc7d93c.mp4 video
 assets/video/lancamento-9x16.mp4 https://d8j0ntlcm91z4.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/hf_20261002_185111_5d1cc21a-eba7-4f1a-89d4-33a1e2586ba5.mp4 video

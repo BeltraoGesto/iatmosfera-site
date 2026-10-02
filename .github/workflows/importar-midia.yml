@@ -44,12 +44,12 @@ jobs:
             echo "-> $destino"
             if [ "${opcao:-}" = "video" ]; then
               curl -fsSL --retry 3 --retry-delay 5 -o /tmp/origem.mp4 "$url"
-              ffmpeg -hide_banner -loglevel error -y -i /tmp/origem.mp4 -an \
+              ffmpeg -nostdin -hide_banner -loglevel error -y -i /tmp/origem.mp4 -an \
                 -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -movflags +faststart \
                 -vf "scale=w='if(gt(iw,ih),min(1920,iw),-2)':h='if(gt(iw,ih),-2,min(1920,ih))'" \
                 "$destino"
               base="$(basename "${destino%.*}")"
-              ffmpeg -hide_banner -loglevel error -y -i "$destino" \
+              ffmpeg -nostdin -hide_banner -loglevel error -y -i "$destino" \
                 -vf "fps=1,scale=480:-2,tile=5x2" -frames:v 1 -q:v 4 "midia/quadros/${base}.jpg"
               echo "   original: $(stat -c %s /tmp/origem.mp4) bytes"
             else
