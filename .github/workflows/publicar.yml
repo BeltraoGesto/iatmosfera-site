@@ -1,0 +1,77 @@
+# Publicação alternativa por FTP ou SSH (só se a Hostinger NÃO estiver puxando o
+# branch main pelo Git). Para ativar, crie no GitHub a variável PUBLICACAO = ftp
+# ou sftp e os segredos indicados em PUBLICACAO-HOSTINGER.md. Sem a variável,
+# este workflow não faz nada — o caminho padrão é o Git da Hostinger.
+name: Publicar na Hostinger (FTP/SSH)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+
+jobs:
+  ftp:
+    name: Enviar por FTP
+    if: ${{ vars.PUBLICACAO == 'ftp' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Conferir segredos
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          faltando=""
+          [ -z "$FTP_SERVER" ] && faltando="$faltando FTP_SERVER"
+          [ -z "$FTP_USERNAME" ] && faltando="$faltando FTP_USERNAME"
+          [ -z "$FTP_PASSWORD" ] && faltando="$faltando FTP_PASSWORD"
+          if [ -n "$faltando" ]; then echo "::error::Segredos ausentes:$faltando. Veja PUBLICACAO-HOSTINGER.md."; exit 1; fi
+      - name: Enviar para a Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: ./
+          server-dir: ${{ vars.FTP_SERVER_DIR || 'public_html/' }}
+          state-name: .ftp-deploy-sync-state.json
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/*.md
+            **/.gitkeep
+            **/dados/*.csv
+
+  sftp:
+    name: Enviar por SSH (rsync)
+    if: ${{ vars.PUBLICACAO == 'sftp' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enviar com rsync
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_PORT: ${{ vars.SSH_PORT || '65002' }}
+          SSH_DIR: ${{ vars.SSH_DIR || 'public_html/' }}
+        run: |
+          set -e
+          if [ -z "$SSH_HOST" ] || [ -z "$SSH_USER" ] || [ -z "$SSH_KEY" ]; then echo "::error::Faltam SSH_HOST, SSH_USER ou SSH_KEY. Veja PUBLICACAO-HOSTINGER.md."; exit 1; fi
+          mkdir -p ~/.ssh && printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key && chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          rsync -rlptzv --delete \
+            --exclude '.git' --exclude '.github' --exclude '*.md' --exclude '.gitkeep' --exclude '.gitignore' --exclude '.ftp-deploy-sync-state.json' \
+            --filter='P dados/*.csv' --filter='P assets/animacoes/***' \
+            -e "ssh -p $SSH_PORT -i ~/.ssh/deploy_key" ./ "$SSH_USER@$SSH_HOST:$SSH_DIR"

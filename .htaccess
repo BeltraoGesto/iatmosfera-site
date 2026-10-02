@@ -1,0 +1,39 @@
+# iAtmosfera — configuração do servidor (Apache/LiteSpeed — Hostinger)
+
+# 1) Forçar HTTPS. Deixe comentado até o certificado SSL estar ativo (hPanel → Segurança → SSL);
+#    depois remova o "#" das três linhas abaixo.
+# RewriteEngine On
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2) Compressão
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# 3) Cache: a página muda a cada publicação, mídias podem ficar em cache por mais tempo
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 10 minutes"
+  ExpiresByType application/json "access plus 1 day"
+  ExpiresByType image/svg+xml "access plus 7 days"
+  ExpiresByType video/mp4 "access plus 30 days"
+  ExpiresByType video/webm "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+</IfModule>
+
+# 4) Nunca servir o estado do deploy nem arquivos ocultos
+<FilesMatch "^\.(ftp-deploy-sync-state\.json|git.*|htaccess)$">
+  Require all denied
+</FilesMatch>
+# 4b) Nunca expor a pasta .git que o Git da Hostinger deixa dentro de public_html (caminho A)
+RedirectMatch 404 "(?:^|/)\.git(?:/|$)"
+
+# 5) Cabeçalhos básicos de segurança
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+Options -Indexes
