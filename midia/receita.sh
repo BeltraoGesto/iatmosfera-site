@@ -40,18 +40,26 @@ NORM="scale=${LARG}:${ALT}:flags=lanczos,setsar=1,fps=24,settb=AVTB,format=yuv42
 # compressor para achatar a passagem do veículo; corte de -5 dB nos médios (motores/tons),
 # reforço do grave (ronco do foguete) e leve realce do chiado da ventilação; nada de sirene.
 A_INI=0.4; A_FIM=9.5
-AUD="[0:a]atrim=${A_INI}:${A_FIM},asetpts=PTS-STARTPTS,asplit=3[s1][s2][s3];[s1][s2]acrossfade=d=1.5:c1=tri:c2=tri[s12];[s12][s3]acrossfade=d=1.5:c1=tri:c2=tri[s123];[s123]atrim=0:${L},asetpts=PTS-STARTPTS,acompressor=threshold=-30dB:ratio=4:attack=20:release=400:makeup=2,equalizer=f=800:width_type=o:width=1.6:g=-5,bass=g=4:f=110,treble=g=2:f=3000,dynaudnorm=f=500:g=21:p=0.8:m=4,volume=-3dB,afade=t=in:d=0.3,afade=t=out:st=$(awk -v l="$L" 'BEGIN{printf "%.3f", l-0.3}'):d=0.3[aout]"
+# 1) trecho limpo de A já com compressor e equalização
+ffmpeg -nostdin -hide_banner -loglevel error -y -i /tmp/A.mp4 -vn -ss "$A_INI" -to "$A_FIM" \
+  -af "acompressor=threshold=-30dB:ratio=4:attack=20:release=400:makeup=2,equalizer=f=800:width_type=o:width=1.6:g=-5,bass=g=4:f=110,treble=g=2:f=3000" \
+  -ar 48000 -ac 2 /tmp/seg.wav
+# 2) três cópias do trecho emendadas com fusões de 1,5 s (entradas separadas: acrossfade precisa disso),
+#    cortadas no comprimento do loop, nivelamento suave e fades curtos nas pontas
+ffmpeg -nostdin -hide_banner -loglevel error -y -i /tmp/seg.wav -i /tmp/seg.wav -i /tmp/seg.wav -filter_complex \
+  "[0:a][1:a]acrossfade=d=1.5:c1=tri:c2=tri[x];[x][2:a]acrossfade=d=1.5:c1=tri:c2=tri[y];[y]atrim=0:${L},asetpts=PTS-STARTPTS,dynaudnorm=f=500:g=21:p=0.8:m=4,volume=-3dB,afade=t=in:d=0.3,afade=t=out:st=$(awk -v l="$L" 'BEGIN{printf "%.3f", l-0.3}'):d=0.3[aout]" \
+  -map "[aout]" -ar 48000 /tmp/aud.wav
+echo "áudio do loop: $(ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/aud.wav)s"
 
 montar() { # $1 = saída, $2 = largura, $3 = altura, $4 = crf, $5 = bitrate de áudio
-  ffmpeg -nostdin -hide_banner -loglevel error -y -i /tmp/A.mp4 -i /tmp/B.mp4 -filter_complex "
+  ffmpeg -nostdin -hide_banner -loglevel error -y -i /tmp/A.mp4 -i /tmp/B.mp4 -i /tmp/aud.wav -filter_complex "
     [0:v]trim=start=${H},setpts=PTS-STARTPTS,${NORM}[va];
     [1:v]${NORM}[vb];
     [0:v]trim=duration=${H},setpts=PTS-STARTPTS,${NORM}[vc];
     [va][vb]xfade=transition=fade:duration=${X1}:offset=${OFF1}[vab];
     [vab][vc]xfade=transition=fade:duration=${X2}:offset=${OFF2}[vloop];
-    [vloop]zoompan=z='1+${ZOOM}*(0.5-0.5*cos(2*PI*on/${N}))':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=${2}x${3}:fps=24,format=yuv420p[vout];
-    ${AUD}" \
-    -map "[vout]" -map "[aout]" -c:v libx264 -preset slow -crf "$4" -movflags +faststart -c:a aac -b:a "$5" -shortest "$1"
+    [vloop]zoompan=z='1+${ZOOM}*(0.5-0.5*cos(2*PI*on/${N}))':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=${2}x${3}:fps=24,format=yuv420p[vout]" \
+    -map "[vout]" -map 2:a -c:v libx264 -preset slow -crf "$4" -movflags +faststart -c:a aac -b:a "$5" -shortest "$1"
   echo "-> $1 $(stat -c %s "$1") bytes, $(ffprobe -v error -show_entries format=duration -of csv=p=0 "$1")s"
 }
 montar "$SAIDA"  2560 1440 18 128k
