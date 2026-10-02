@@ -1,2 +1,3 @@
 # candidatos 16:9 (branch referencias) — destino  url  opções
-referencias/cand-kling4k-livre.mp4 https://d8j0ntlcm91z4.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/hf_20261002_190915_0090f2cf-9ca6-4494-9eae-14481d38ed2b.mp4 loop=1.5
+referencias/cand-minimax2k-loop.mp4 https://d8j0ntlcm91z4.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/hf_20261002_190941_e6cc7390-a460-4f2a-b568-3b8d072ac5fb.mp4 video
+referencias/cand-minimax2k-livre.mp4 https://d8j0ntlcm91z4.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/hf_20261002_190944_9dd44279-aac5-4fda-980a-5a50a490fefc.mp4 loop=1.5
