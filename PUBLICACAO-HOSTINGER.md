@@ -68,12 +68,16 @@ você / Claude --push--> GitHub (main) --Hostinger puxa--> public_html --> https
 
 | Arquivo | Para quê |
 |---|---|
-| `index.html` | a página inteira; o conteúdo editável fica no bloco `CONTEUDO` no início do script |
+| `index.html` | landing page (vídeo de fundo, "Avise-me", botão Contato); textos e caminhos no próprio arquivo e no bloco `CONFIG` do script |
+| `galaxia.html` | a galáxia interativa ("em breve"); conteúdo editável no bloco `CONTEUDO` no início do script |
+| `assets/video/` | vídeo de fundo em loop (`lancamento-16x9.mp4`, `lancamento-9x16.mp4`) e os pôsteres `.jpg` |
 | `.htaccess` | compressão, cache, bloqueio de arquivos internos e da pasta `.git`, HTTPS (comentado) |
 | `avise-me.php` | recebe o formulário "Avise-me" (opcional) |
-| `dados/` | onde o PHP grava os e-mails; protegido por `.htaccess` |
+| `contato.php` | recebe o formulário "Contato" da landing (opcional) |
+| `dados/` | onde o PHP grava os e-mails e mensagens; protegido por `.htaccess` |
 | `assets/animacoes/` | animações de cada quadro (veja o README da pasta) |
 | `.github/workflows/publicar.yml` | só para os caminhos B e C |
+| `.github/workflows/importar-midia.yml` | traz vídeos/imagens geradas (ex.: Higgsfield) para dentro do repositório: liste em `midia/importar.txt` e faça push |
 
 ## Problemas comuns
 
@@ -82,4 +86,4 @@ você / Claude --push--> GitHub (main) --Hostinger puxa--> public_html --> https
 | Hostinger recusa: "directory is not empty" | `public_html` tem arquivos | esvaziar a pasta e tentar de novo |
 | Site não atualiza depois do push | Hostinger não recebeu o aviso | hPanel → Avançado → Git → **Deploy** manual; conferir o webhook no GitHub |
 | `530 Login incorrect` (FTP) | usuário ou host errados | copiar de novo de **Contas FTP** |
-| Formulário abre o e-mail em vez de enviar | `avise-me.php` não subiu ou PHP com erro | conferir o arquivo em `public_html`; versão do PHP (**Avançado → Configuração PHP**) ≥ 7.4 |
+| Formulário abre o e-mail em vez de enviar | `avise-me.php`/`contato.php` não subiu ou PHP com erro | conferir o arquivo em `public_html`; versão do PHP (**Avançado → Configuração PHP**) ≥ 7.4 |

@@ -1,4 +1,4 @@
-# Pasta onde o avise-me.php guarda os e-mails. Nunca pode ser lida pelo navegador.
+# Pasta onde avise-me.php e contato.php guardam os dados. Nunca pode ser lida pelo navegador.
 <IfModule mod_authz_core.c>
   Require all denied
 </IfModule>
