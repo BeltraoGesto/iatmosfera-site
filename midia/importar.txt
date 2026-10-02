@@ -1,1 +1,3 @@
-# nada para baixar: a montagem está em midia/receita.sh
+# vídeo de fundo final (editado no Higgsfield, H.264 1080p, loop fechado) e pôster = primeiro quadro
+assets/video/lancamento-16x9.mp4 https://d2ol7oe51mr4n9.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/53017577-84ed-4e6a-b374-2aafdb098fe8.mp4 bruto
+assets/video/lancamento-16x9.jpg https://d2ol7oe51mr4n9.cloudfront.net/user_3JrpVF6RHYDXayQgblrxBgA0H2i/53017577-84ed-4e6a-b374-2aafdb098fe8.mp4 quadro=primeiro
