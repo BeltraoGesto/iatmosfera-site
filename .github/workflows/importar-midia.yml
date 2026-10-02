@@ -1,0 +1,46 @@
+# Importa arquivos de mídia (imagens/vídeos gerados) para dentro do repositório.
+# Como usar: liste em midia/importar.txt uma linha por arquivo no formato
+#   caminho/de/destino.ext https://url-de-origem
+# e faça push. O job baixa cada URL e faz commit dos arquivos no mesmo branch.
+name: Importar mídia
+
+on:
+  push:
+    paths:
+      - midia/importar.txt
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: importar-midia-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Baixar arquivos listados
+        run: |
+          set -eu
+          while IFS=' ' read -r destino url _; do
+            [ -z "${destino:-}" ] && continue
+            case "$destino" in '#'*) continue;; esac
+            [ -z "${url:-}" ] && { echo "URL ausente para $destino"; exit 1; }
+            mkdir -p "$(dirname "$destino")"
+            echo "-> $destino"
+            curl -fsSL --retry 3 --retry-delay 5 -o "$destino" "$url"
+            ls -l "$destino"
+          done < midia/importar.txt
+
+      - name: Commit dos arquivos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && { echo "Nada novo."; exit 0; }
+          git commit -m "Importar mídia gerada [skip ci]"
+          git push
